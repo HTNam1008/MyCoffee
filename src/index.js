@@ -12,7 +12,7 @@ const route=require("./routes");
 const db=require("./config/db");
 
 //connect db
-db.connect();
+db.connect("MyCoffee");
 
 
 app.use('/public/js',express.static(__dirname+'/public/js'));
