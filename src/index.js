@@ -13,7 +13,7 @@ const db=require("./config/db");
 
 //connect db
 db.connect("MyCoffee");
-
+//db.connect("Administration")
 
 app.use('/public/js',express.static(__dirname+'/public/js'));
 app.use('/public/image',express.static(__dirname+'/public/image'));

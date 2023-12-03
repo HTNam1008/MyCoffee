@@ -1,0 +1,34 @@
+
+<head>
+    <title>Employee Information</title>
+</head>
+
+<body>
+    <h1>Employee Information</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each employees}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.sdt}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.password}}</td>
+                <td>{{this.admin}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</body>
+
+</html>
