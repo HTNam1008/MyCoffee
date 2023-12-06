@@ -9,7 +9,6 @@ class HomeController{
                 products:mutipleMongooseToObject(products)});
         })
         .catch(next); 
-
     }
 }
 

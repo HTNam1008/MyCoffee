@@ -1,0 +1,67 @@
+<div class="mt-4 ml-4">
+    <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
+    <span>&gt;</span>
+     <a style="color: rgb(100, 97, 97);" href="/admin/showProducts"> Quản lý sản phẩm </a>
+      <span>&gt;</span>
+     <a style="color: rgb(100, 97, 97);" href="/products/editProduct"> Chỉnh sửa sản phẩm </a>
+</div>        
+
+<div class="container mt-4">
+    <h3>Chỉnh sửa sản phẩm</h3>
+    <form method="POST" action="/products/{{product._id}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Tên sản phẩm</label>
+        <input type="text" class="form-control" id="name"  name="name" value="{{product.name}}">
+    </div>
+    <div class="form-group">
+        <label for="price">Giá bán</label>
+        <input type="number" class="form-control" id="price" name="price" value="{{product.price}}">
+    </div>
+    <div class="form-group">
+        <label for="type">Loại sản phẩm</label>
+        <input type="text" class="form-control" id="type" name="type" value="{{product.type}}">
+    </div>
+    <div class="form-group">
+        <label for="image">Hình ảnh</label>
+        <input type="file" class="form-control" id="image" name="image" accept=".png, .jpg" onchange="previewImage(event)">
+        <img src="{{product.image}}"  id="preview" style="max-width: 500px; display: block;" alt="Preview">
+        
+    </div>
+    <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+</script>
+
+<script>
+    // Lấy đường dẫn tương đối từ '{{product.image}}'
+    const relativePath = "{{product.image}}";
+
+// Kiểm tra nếu đường dẫn không bắt đầu bằng 'http' hoặc 'https', chứng tỏ nó không phải là đường dẫn tuyệt đối
+    if (!relativePath.startsWith('http') && !relativePath.startsWith('https')) {
+    // Lấy đường dẫn gốc của trang web
+        const baseURL = window.location.origin;
+
+        // Tạo đường dẫn tuyệt đối bằng cách kết hợp đường dẫn gốc và đường dẫn tương đối
+        const absolutePath = baseURL + relativePath;
+
+        // Đặt đường dẫn tuyệt đối vào thuộc tính 'src' của thẻ <img>
+        document.getElementById('preview').src = absolutePath;
+    }
+</script>

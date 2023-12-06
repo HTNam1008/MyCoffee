@@ -60,7 +60,12 @@ checkAndCreateRootAdmin();
 
 app.use('/public/js',express.static(__dirname+'/public/js'));
 app.use('/public/image',express.static(__dirname+'/public/image'));
+
+// app.use('/uploads',express.static(__dirname+'/src/uploads'));
+// app.use('/uploads', express.static(path.join(__dirname, 'src', 'resource', 'views', 'admin', 'uploads')));
 app.use(express.static(path.join(__dirname,'public')));
+// app.use(express.static(path.join(__dirname,'src/uploads')));
+
 app.use(express.urlencoded({
     extended: true
 }));

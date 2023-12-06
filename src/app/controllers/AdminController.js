@@ -21,6 +21,24 @@ class AdminController{
         .catch(next); 
 
     }
+    homepage(req,res,next){
+        Product.find({})
+        .then(products=>{ 
+            res.render('admin/homepageAdmin',{
+                products:mutipleMongooseToObject(products)});
+        })
+        .catch(next); 
+
+    }
+    orderHistory(req,res,next){
+        Product.find({})
+        .then(products=>{ 
+            res.render('admin/orderHistory',{
+                products:mutipleMongooseToObject(products)});
+        })
+        .catch(next); 
+
+    }
 }
 
 module.exports=new AdminController();
