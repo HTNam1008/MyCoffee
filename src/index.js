@@ -11,8 +11,9 @@ const port=3000;
 const route=require("./routes");
 const db=require("./config/db");
 
-//connect db
+//connect dbs
 db.connect();
+
 
 
 app.use('/public/js',express.static(__dirname+'/public/js'));
