@@ -11,9 +11,14 @@ const port=3000;
 const route=require("./routes");
 const db=require("./config/db");
 
+
+
+
 //connect db
 db.connect("MyCoffee");
 //db.connect("Administration")
+
+
 
 app.use('/public/js',express.static(__dirname+'/public/js'));
 app.use('/public/image',express.static(__dirname+'/public/image'));
@@ -30,12 +35,15 @@ app.engine(
     engine({
         extname: '.hbs',
         helpers:{
+            sum: (a,b)=>a+b,
             ifEquals: function (a, b, opts) {
                 if (a.toString() === b.toString()) {
                     return opts.fn(this);
                 }
                 return opts.inverse(this)
             }
+
+
         }
     })
 );

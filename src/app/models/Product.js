@@ -20,4 +20,4 @@ Product.plugin(mongooseDelete,{
     overrideMethods:'all',});
 
 
-module.exports=mongoose.model('Product',Product);
+module.exports=mongoose.model('products',Product);
