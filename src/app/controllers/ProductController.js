@@ -10,6 +10,15 @@ class ProductController{
            })
            .catch(next);
     }
+    
+    addProduct(req,res,next){
+      Product.findOne({})
+      .then(products=>{ 
+          res.render('products/addProduct',{
+              products:mongoosesToObject(products)});
+      })
+      .catch(next); 
+  }
 }
 
 module.exports=new ProductController;
