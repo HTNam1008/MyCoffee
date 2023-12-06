@@ -11,13 +11,23 @@ const port=3000;
 const route=require("./routes");
 const db=require("./config/db");
 
+
+
+
 //connect db
 db.connect("MyCoffee");
 //db.connect("Administration")
 
+
+
 app.use('/public/js',express.static(__dirname+'/public/js'));
 app.use('/public/image',express.static(__dirname+'/public/image'));
+
+// app.use('/uploads',express.static(__dirname+'/src/uploads'));
+// app.use('/uploads', express.static(path.join(__dirname, 'src', 'resource', 'views', 'admin', 'uploads')));
 app.use(express.static(path.join(__dirname,'public')));
+// app.use(express.static(path.join(__dirname,'src/uploads')));
+
 app.use(express.urlencoded({
     extended: true
 }));
@@ -30,12 +40,15 @@ app.engine(
     engine({
         extname: '.hbs',
         helpers:{
+            sum: (a,b)=>a+b,
             ifEquals: function (a, b, opts) {
                 if (a.toString() === b.toString()) {
                     return opts.fn(this);
                 }
                 return opts.inverse(this)
             }
+
+
         }
     })
 );

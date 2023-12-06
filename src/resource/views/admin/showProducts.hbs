@@ -80,6 +80,7 @@
         </thead>
         <tbody>
         {{#each products}}
+        {{#unless admin}}
             <tr>
                 <td>{{this.name}}</td>
                 <td>{{this.type}}</td>
@@ -95,17 +96,79 @@
                 <td>{{this.price}}</td>
                 <td>{{this.slug}}</td>
                 <td>
-                    <button class="btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button class="btn"><i class="fa fa-trash"></i></button>
+                    <a href="/products/{{this._id}}/editProduct"><button class="btn"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                    
+                    <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal"class="btn btn-link text-dark"><button class="btn"><i class="fa fa-trash"></i></button></a>
                 </td>
+            </tr>
+            {{/unless}}
+        {{else}}
+            <tr>
+            <td colspan="5" class="text-center">
+                Chưa có nhân viên.
+                <a href="/products/addProduct">Thêm sản phẩm</a>
+            </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-    
-    
-    </div>
+
     </div>
     
+        <!-- Modal -->
+    <div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                >
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa nhân viên này?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa
+                bỏ</button>
+                <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                >Hủy</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="POST" name="delete-form"></form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){ 
+        
+        var productId; 
+        var deleteForm=document.forms['delete-form'];
+            $('#delete-course-modal').on('show.bs.modal',function(event){ 
+                var button=$(event.relatedTarget); 
+                productId=button.data('id') 
+        }); 
+        var btnDeleteCourse=document.getElementById("btn-delete-course");
+        btnDeleteCourse.onclick=function(){
+            deleteForm.action='/products/'+productId+'?_method=DELETE'; 
+            deleteForm.submit();
+        } 
+        });
+
+        function openNav() { 
+            document.getElementById("mySidenav").style.width ="250px"; } 
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0"; }
+    </script>
 </body>
 </html>
