@@ -3,10 +3,20 @@ const express=require ('express');
 const morgan=require ('morgan');
 const {engine}=require('express-handlebars');
 const methodOverride=require("method-override");
+const cookieParser=require("cookie-parser");
 const bcrypt = require('bcrypt');
+const session=require('express-session');
+
 
 const app=express();
 const port=3000;
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}));
+
 
 const Admin=require('./app/models/Admin')
 
@@ -57,7 +67,7 @@ db.connect("MyCoffee");
 checkAndCreateRootAdmin();
 
 
-
+//app.use(authenticateMiddleware);
 app.use('/public/js',express.static(__dirname+'/public/js'));
 app.use('/public/image',express.static(__dirname+'/public/image'));
 

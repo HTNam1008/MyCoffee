@@ -9,6 +9,7 @@ const courseController=require('../app/controllers/ProductController');
 const ProductController = require('../app/controllers/ProductController');
 
 
+
 route.get('/addProduct',ProductController.addProduct);
 route.get('/:slug',ProductController.show);
 route.get('/:id/editProduct',ProductController.edit);
@@ -24,6 +25,8 @@ const storage = multer.diskStorage({
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
     }
+
+    
 });
 
 const upload = multer({ storage: storage });

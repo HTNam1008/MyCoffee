@@ -7,9 +7,19 @@
       class="closebtn"
       onclick="closeNav()"
     >&times;</a>
+    {{#if user}}
+    <a href="#">Trang chủ</a>
+    <a href="#">Lịch sử góp ý</a>
+    <a href="#">Quản lý order</a>
+    <a href="#">Quản lý doanh thu</a>
+    <a href="/admin/showEmployees">Quản lý nhân viên</a>
+    <a href="/admin/showProducts">Quản lý sản phẩm</a>
+    <a href="#">Đăng xuất</a>
+    {{else}}
     <a href="#">Trang chủ</a>
     <a href="#">Góp ý cửa hàng</a>
-    <a href="#">Admin</a>
+    <a href="/account/signin">Đăng nhập</a>
+    {{/if}}
   </div>
   <div>
     <span
