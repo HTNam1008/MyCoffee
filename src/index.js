@@ -11,8 +11,12 @@ const port=3000;
 const route=require("./routes");
 const db=require("./config/db");
 
-//connect dbs
-db.connect();
+
+
+
+//connect db
+db.connect("MyCoffee");
+//db.connect("Administration")
 
 
 
@@ -31,12 +35,15 @@ app.engine(
     engine({
         extname: '.hbs',
         helpers:{
+            sum: (a,b)=>a+b,
             ifEquals: function (a, b, opts) {
                 if (a.toString() === b.toString()) {
                     return opts.fn(this);
                 }
                 return opts.inverse(this)
             }
+
+
         }
     })
 );
