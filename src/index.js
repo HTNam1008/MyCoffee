@@ -3,20 +3,58 @@ const express=require ('express');
 const morgan=require ('morgan');
 const {engine}=require('express-handlebars');
 const methodOverride=require("method-override");
+const bcrypt = require('bcrypt');
 
 const app=express();
 const port=3000;
 
+const Admin=require('./app/models/Admin')
 
 const route=require("./routes");
 const db=require("./config/db");
 
+const createRootAdmin = async () => {
+    try {
+      // Tạo một salt ngẫu nhiên và hash mật khẩu
+      const saltRounds = 10; // Số lần lặp để tạo salt
+      const hashedPassword = await bcrypt.hash('anhthu123', saltRounds);
+  
+      // Tạo một admin gốc với mật khẩu đã được hash
+      const rootAdmin = new Admin({
+        username: 'bapcaiday',
+        password: hashedPassword,
+      });
+  
+      // Lưu admin vào cơ sở dữ liệu
+      await rootAdmin.save();
+      console.log('Root admin account created');
+    } catch (error) {
+      console.error('Error creating root admin account:', error);
+    }
+  };
 
-
+  const checkAndCreateRootAdmin = async () => {
+    try {
+      // Kiểm tra xem admin gốc đã được tạo chưa
+      const existingAdmin = await Admin.findOne({ username: 'bapcaiday' });
+  
+      if (!existingAdmin) {
+        // Nếu chưa có admin gốc, thì tạo mới
+        await createRootAdmin();
+      } else {
+        console.log('Root admin account already exists');
+      }
+    } catch (error) {
+      console.error('Error checking root admin existence:', error);
+    }
+  };
+  
 
 //connect db
+
 db.connect("MyCoffee");
 //db.connect("Administration")
+checkAndCreateRootAdmin();
 
 
 
