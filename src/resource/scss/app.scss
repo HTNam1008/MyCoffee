@@ -59,6 +59,17 @@
     font-weight: 600;
 }
 
+.modal{
+    &-dialog{
+        min-width: 50%;
+    }
+    &-header{
+        padding: 36px 60px;
+        background: #E3CEAA;
+        color: black;
+    }
+}
+
 .sidenav {
     height: 100%;
     width: 0;
