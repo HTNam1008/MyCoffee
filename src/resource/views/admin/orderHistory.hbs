@@ -72,6 +72,12 @@
     .list-item:hover {
       background-color:bisque; /* Màu nền khi di chuột vào */
     }
+    .hv{
+      text-decoration: none;
+    }
+    .hv:hover {
+      text-decoration: underline;
+    }
   </style>
   
 </head>
@@ -79,7 +85,12 @@
 <body>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-  <div  style="padding:20px;"> Trang chủ > Lịch sử order</div>
+  <div class="mt-4 ml-4">
+        <a class="hv" style="color: rgb(100, 97, 97);" href="/admin"> Trang chủ </a>
+        <span>&gt;</span>
+        <a class="hv" style="color: rgb(100, 97, 97);" href="/"> Lịch sử order </a>
+  </div>
+
   <div class="container mt-4 marginB20">
 
     <div class="form-group marginB20">
@@ -201,6 +212,11 @@
         listview.style.display = 'none';
         }
       });
+
+      function openNav() { 
+        document.getElementById("mySidenav").style.width ="250px"; } 
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0"; }
 
     </script>
 </body>

@@ -37,10 +37,11 @@ class AdminController{
 
     }
     orderHistory(req,res,next){
+        const user=req.session.user;
         Product.find({})
         .then(products=>{ 
             res.render('admin/orderHistory',{
-                products:mutipleMongooseToObject(products)});
+                products:mutipleMongooseToObject(products),user:user});
         })
         .catch(next); 
 
