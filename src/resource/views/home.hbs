@@ -17,7 +17,7 @@
     <a href="#">Đăng xuất</a>
     {{else}}
     <a href="#">Trang chủ</a>
-    <a href="#">Góp ý cửa hàng</a>
+    <a href="" data-toggle="modal" data-target="#feedbackModal">Góp ý cửa hàng</a>
     <a href="/account/signin">Đăng nhập</a>
     {{/if}}
 
@@ -45,6 +45,46 @@
     >Search</button>
   </form>
 </nav>
+
+<!-- Modal Feedback -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header-wrapper d-flex align-items-center h2">
+          <div class="modal-header-icon mr-3">
+            <i class="fa-solid fa-envelope-open-text"></i>
+          </div>
+          <h5 class="modal-title h1" id="feedbackModalLabel">Góp ý cửa hàng</h5>
+        </div>
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/home/storeFeedback">
+          <div class="form-group">
+            <label for="name">Họ tên</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="feadback_content">Góp ý với cửa hàng</label>
+            <textarea class="form-control" id="feadback_content" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+        <button type="submit" class="btn btn-outline-success">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
   <div class="row">
