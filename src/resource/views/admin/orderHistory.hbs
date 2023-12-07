@@ -3,13 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
   <style>
     .marginB20{
       margin-bottom: 20px;
@@ -23,7 +20,7 @@
 
     .btnView{
       background-color: bisque;
-      height:30px;
+      height: 30px;
       width: 80px;
       align-items: center;
       border-radius: 5px;
@@ -42,7 +39,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       width: 300px;
-      height: 35px;
+      height: 40px;
     }
 
     .search-icon {
@@ -83,40 +80,41 @@
 </head>
 
 <body>
+  
+  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
   <div class="mt-4 ml-4">
-        <a class="hv" style="color: rgb(100, 97, 97);" href="/admin"> Trang chủ </a>
+        <a class="hv" style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
         <span>&gt;</span>
-        <a class="hv" style="color: rgb(100, 97, 97);" href="/"> Lịch sử order </a>
+        <a class="hv" style="color: rgb(100, 97, 97);" href="/admin/orderHistory"> Lịch sử order </a>
   </div>
 
-  <div class="container mt-4 marginB20">
+  <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 50%;">
 
     <div class="form-group marginB20">
-      <label for="datepicker" class="mb-0" style="padding-right: 10px ;">Chọn ngày:</label>
-      <div class="input-group date" id="datepicker" data-target-input="nearest">
-        <input type="text" class="form-control datetimepicker-input" style="width: 250px;" data-target="#datepicker" />
-        <div class="input-group-append" data-target="#datepicker" data-toggle="datetimepicker">
-          <div class="input-group-text"><i class="fa-solid fa-calendar-days"></i></div>
+      <label style = "margin-top: 15px;">Chọn ngày:</label>
+      <div data-target-input="nearest">
+        <div >
+          <input id="datepicker" width="276" />
         </div>
       </div>
     </div>
 
     <div class="form-group marginB20">
-      <div>
-        <label class="mb-0" style="padding-right: 10px;">Phương thức thanh toán:</label>
-
-      </div>
-      <div class="search-container">
-        <input type="text" class="search-input">
-          <div class="search-icon" onclick="toggleListview()">&#9660;</div>
-            <div class="listview">
-              <div class="list-item" onclick="selectItem(this)">Thanh toán bằng tiền mặt</div>
-              <div class="list-item" onclick="selectItem(this)">Thanh toán qua momo</div>
-              <div class="list-item" onclick="selectItem(this)">Thanh toán qua tài khoản ngân hàng</div>
-                <!-- Thêm các mục khác nếu cần -->
-            </div>
+      <label>Phương thức thanh toán:</label>
+      <div data-target-input="nearest" >
+        <div class="search-container">
+          <input type="text" class="search-input">
+            <div class="search-icon" onclick="toggleListview()">&#9660;</div>
+              <div class="listview">
+                <div class="list-item" onclick="selectItem(this)">Thanh toán bằng tiền mặt</div>
+                <div class="list-item" onclick="selectItem(this)">Thanh toán qua momo</div>
+                <div class="list-item" onclick="selectItem(this)">Thanh toán qua tài khoản ngân hàng</div>
+                  <!-- Thêm các mục khác nếu cần -->
+              </div>
+        </div>
       </div>
     </div>
 
@@ -175,22 +173,7 @@
     </tbody>
   </table>
 
-
   <script>
-  $(document).ready(function () {
-    $('#datepicker').datepicker({
-      autoclose: true,
-      format: "dd/mm/yyyy", 
-      todayHighlight: true
-    });
-
-  // Thêm sự kiện click cho nút
-    $('.input-group-append button').on('click', function() {
-      $('#datepicker').datepicker('show');
-    });
-  });
-</script>
-<script>
       function toggleListview() {
         const listview = document.querySelector('.listview');
         listview.style.display = (listview.style.display === 'block') ? 'none' : 'block';
@@ -218,7 +201,11 @@
       function closeNav() {
         document.getElementById("mySidenav").style.width = "0"; }
 
-    </script>
+      $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap5'
+        });
+  </script>
+
 </body>
 
 </html>
