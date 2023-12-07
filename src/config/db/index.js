@@ -1,6 +1,5 @@
 const mongoose=require("mongoose");
 
-
 async function connect(databaseName) {
     try {
         mongoose.set("strictQuery", false);
@@ -8,7 +7,8 @@ async function connect(databaseName) {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log(`Connected to ${databaseName} successfully`);
+        
+       
     } catch (error) {
         console.log(`Connection to ${databaseName} failed`);
     }

@@ -7,9 +7,21 @@
       class="closebtn"
       onclick="closeNav()"
     >&times;</a>
+    {{#if user}}
+    <a href="#">Trang chủ</a>
+    <a href="#">Lịch sử góp ý</a>
+    <a href="#">Quản lý order</a>
+    <a href="#">Quản lý doanh thu</a>
+    <a href="/admin/showEmployees">Quản lý nhân viên</a>
+    <a href="/admin/showProducts">Quản lý sản phẩm</a>
+    <a href="#">Đăng xuất</a>
+    {{else}}
     <a href="#">Trang chủ</a>
     <a href="#">Góp ý cửa hàng</a>
-    <a href="#">Đăng nhập</a>
+    <a href="/account/signin">Đăng nhập</a>
+    {{/if}}
+
+    
   </div>
   <div>
     <span
@@ -26,6 +38,7 @@
       placeholder="Nhập tên sản phẩm"
       aria-label="Tìm kiếm"
     />
+
     <button
       class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
       type="submit"
@@ -279,10 +292,7 @@
          {{/ifEquals}}
         {{/each}}
       </div>
-
-      
-
-    </div>
+    </div> 
   </div>
 </div>
 

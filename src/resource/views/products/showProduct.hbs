@@ -1,0 +1,133 @@
+<div class="mt-4 ml-4">
+    <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
+    <span>&gt;</span>
+     <a style="color: rgb(100, 97, 97);" href="/products/{{product.slug}}"> {{product.name}} </a>
+</div>
+
+<div class="container mt-4">
+    <div class="product_detail d-inline-flex">
+    <img class="product__image mr-5" src="{{product.image}}" alt="{{product.name}}"/>
+    <form class="ml-5" action="" method="POST" name="product_order_detail">
+        <h2>{{product.name}}</h2>
+        
+        <div class="product__order-attribute mt-4">
+            <h4 class="product__order-attribute-name">Đơn vị tính</h4>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="size" id="sizeS" value="sizeS">
+               <label class="form-check-label" for="sizeS">Size S</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="size" id="sizeM" value="sizeM">
+               <label class="form-check-label" for="sizeM">Size M</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="size" id="sizeL" value="sizeL">
+               <label class="form-check-label" for="sizeL">Size L</label>
+            </div>
+            <hr/>
+        </div>
+
+        <div class="product__order-attribute mt-4">
+            <h4 class="product__order-attribute-name">Tỉ lệ đá</h4>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="ice" id="100%" value="100%">
+               <label class="form-check-label" for="100%">100%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="ice" id="70%" value="70%">
+               <label class="form-check-label" for="70%">70%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="ice" id="50%" value="50%">
+               <label class="form-check-label" for="50%">50%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="ice" id="0%" value="0%">
+               <label class="form-check-label" for="0%">0%</label>
+            </div>
+            <hr/>
+        </div>
+
+        <div class="product__order-attribute mt-4">
+            <h4 class="product__order-attribute-name">Tỉ lệ đường</h4>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="sugar" id="100%" value="100%">
+               <label class="form-check-label" for="100%">100%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="sugar" id="70%" value="70%">
+               <label class="form-check-label" for="70%">70%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="sugar" id="50%" value="50%">
+               <label class="form-check-label" for="50%">50%</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="sugar" id="0%" value="0%">
+               <label class="form-check-label" for="0%">0%</label>
+            </div>
+            <hr/>
+        </div>
+
+        <div class="product__order-attribute mt-4">
+            <h4 class="product__order-attribute-name">Tùy chọn thêm</h4>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" name="topping" id="tranchau" value="tranchau">
+               <label class="form-check-label" for="tranchau">Trân châu +8000đ</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" name="topping" id="banhplan" value="banhplan">
+               <label class="form-check-label" for="banhplan">Bánh plan +7000đ</label>
+            </div>
+            <div class="form-check form-check-inline">
+               <input class="form-check-input" type="checkbox" name="topping" id="thach" value="thach">
+               <label class="form-check-label" for="thach">Thạch +5000đ</label>
+            </div>
+            <hr/>
+        </div>
+
+        <div class="product__order-attribute mt-4">
+            <h4 class="product__order-attribute-name">Số lượng</h4>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-light" id="decrease">-</button>
+                </span>
+                <input style="width: 50px; border: 0px #C38154 solid" type="text" class="text-center" value="1" id="quantity" readonly>
+                <span class="input-group-btn">
+                   <button type="button" class="btn btn-light" id="increase">+</button>
+                </span>
+            </div>
+        </div>
+
+         <div class="product__order-attribute mt-4">
+            <div class="form-group">
+               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Thêm lời nhắn cho cửa hàng"></textarea>
+            </div>
+         </div>
+
+          <button type="submit" class="btn btn-warning product__order-button">Thêm vào đơn hàng</button>
+
+    </form>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var decreaseButton = document.getElementById('decrease');
+    var increaseButton = document.getElementById('increase');
+    var quantityInput = document.getElementById('quantity');
+
+    decreaseButton.addEventListener('click', function () {
+      var currentValue = parseInt(quantityInput.value, 10);
+      if (currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+    });
+
+    increaseButton.addEventListener('click', function () {
+      var currentValue = parseInt(quantityInput.value, 10);
+      quantityInput.value = currentValue + 1;
+    });
+  });
+</script>
