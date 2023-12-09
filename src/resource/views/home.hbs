@@ -8,20 +8,19 @@
       onclick="closeNav()"
     >&times;</a>
     {{#if user}}
-    <a href="#">Trang chủ</a>
-    <a href="#">Lịch sử góp ý</a>
-    <a href="/admin/orderHistory">Quản lý order</a>
-    <a href="#">Quản lý doanh thu</a>
-    <a href="/admin/showEmployees">Quản lý nhân viên</a>
-    <a href="/admin/showProducts">Quản lý sản phẩm</a>
-    <a href="#">Đăng xuất</a>
+      <a href="#">Trang chủ</a>
+      <a href="#">Lịch sử góp ý</a>
+      <a href="/admin/orderHistory">Quản lý order</a>
+      <a href="#">Quản lý doanh thu</a>
+      <a href="/admin/showEmployees">Quản lý nhân viên</a>
+      <a href="/admin/showProducts">Quản lý sản phẩm</a>
+      <a href="#">Đăng xuất</a>
     {{else}}
-    <a href="#">Trang chủ</a>
-    <a href="" data-toggle="modal" data-target="#feedbackModal">Góp ý cửa hàng</a>
-    <a href="/account/signin">Đăng nhập</a>
+      <a href="#">Trang chủ</a>
+      <a href="" data-toggle="modal" data-target="#feedbackModal">Góp ý cửa hàng</a>
+      <a href="/account/signin">Đăng nhập</a>
     {{/if}}
 
-    
   </div>
   <div>
     <span
@@ -47,42 +46,84 @@
 </nav>
 
 <!-- Modal Feedback -->
-<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="feedbackModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="feedbackModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-header-wrapper d-flex align-items-center h2">
-          <div class="modal-header-icon mr-3">
-            <i class="fa-solid fa-envelope-open-text"></i>
+    <form
+      method="POST"
+      action="/feedback/storeFeedback"
+      enctype="multipart/form-data"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-header-wrapper d-flex align-items-center h2">
+            <div class="modal-header-icon mr-3">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <h5 class="modal-title h1" id="feedbackModalLabel">Góp ý cửa hàng</h5>
           </div>
-          <h5 class="modal-title h1" id="feedbackModalLabel">Góp ý cửa hàng</h5>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="/home/storeFeedback">
+        <div class="modal-body">
           <div class="form-group">
             <label for="name">Họ tên</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" />
           </div>
           <div class="form-group">
             <label for="phone">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone">
+            <input type="text" class="form-control" id="phone" name="phone" />
           </div>
           <div class="form-group">
             <label for="feadback_content">Góp ý với cửa hàng</label>
-            <textarea class="form-control" id="feadback_content" rows="3"></textarea>
+            <textarea
+              class="form-control"
+              id="feadback_content"
+              name="feedback"
+              rows="3"
+            ></textarea>
           </div>
-        </form>
+          <div class="form-group">
+            <label for="image">Thêm hình ảnh</label>
+            <input
+              type="file"
+              class="form-control"
+              id="image"
+              name="image"
+              accept=".png, .jpg"
+              onchange="previewImage(event)"
+            />
+            <img
+              src=""
+              id="preview"
+              style="max-width: 500px; display: none;"
+              alt="Preview"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Hủy bỏ</button>
+          <button type="submit" class="btn btn-outline-success">Lưu</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-        <button type="submit" class="btn btn-outline-success">Lưu</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
@@ -94,7 +135,7 @@
           MENU
         </li>
         <li class="nav-item">
-          <a class="menu__session nav-link " href="#coffee">Cà phê</a>
+          <a class="menu__session nav-link" href="#coffee">Cà phê</a>
         </li>
         <li class="nav-item">
           <a class="menu__session nav-link" href="#juice">Nước ép</a>
@@ -124,215 +165,211 @@
       <div id="coffee">
         <h1 class="menu__session-title ml-3">Cà phê</h1>
         {{#each products}}
-        {{#ifEquals this.type "coffee"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "coffee"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
       <div id="juice">
         <h1 class="menu__session-title ml-3 mt-3">Nước ép</h1>
         {{#each products}}
-        {{#ifEquals this.type "juice"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "juice"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
       <div id="smoothy">
         <h1 class="menu__session-title ml-3 mt-3">Sinh tố</h1>
         {{#each products}}
-        {{#ifEquals this.type "smoothy"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "smoothy"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
       <div id="iceblended">
         <h1 class="menu__session-title ml-3 mt-3">Đá xay</h1>
         {{#each products}}
-        {{#ifEquals this.type "iceblended"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "iceblended"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
-      
       <div id="tea">
         <h1 class="menu__session-title ml-3 mt-3">Trà</h1>
         {{#each products}}
-        {{#ifEquals this.type "tea"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "tea"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
-      
       <div id="milktea">
         <h1 class="menu__session-title ml-3 mt-3">Trà sữa</h1>
         {{#each products}}
-        {{#ifEquals this.type "milktea"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "milktea"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
-      
       <div id="soda">
         <h1 class="menu__session-title ml-3 mt-3">Soda</h1>
         {{#each products}}
-        {{#ifEquals this.type "soda"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "soda"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
 
-      
       <div id="food">
         <h1 class="menu__session-title ml-3 mt-3">Đồ ăn</h1>
         {{#each products}}
-        {{#ifEquals this.type "food"}}
-          <div class="menu__item col-sm-2 col-lg-2">
-            <div class="card card-course-item">
-              <a href="/products/{{this.slug}}">
-                <img
-                  class="card-img-top"
-                  src="{{this.image}}"
-                  alt="{{this.name}}"
-                />
-              </a>
-
-              <div class="card-body">
+          {{#ifEquals this.type "food"}}
+            <div class="menu__item col-sm-2 col-lg-2">
+              <div class="card card-course-item">
                 <a href="/products/{{this.slug}}">
-                  <h5 class="card-title">{{this.name}}</h5>
+                  <img
+                    class="card-img-top"
+                    src="{{this.image}}"
+                    alt="{{this.name}}"
+                  />
                 </a>
-                <p class="card-text">{{this.price}}đ</p>
+
+                <div class="card-body">
+                  <a href="/products/{{this.slug}}">
+                    <h5 class="card-title">{{this.name}}</h5>
+                  </a>
+                  <p class="card-text">{{this.price}}đ</p>
+                </div>
               </div>
             </div>
-          </div>
-         {{/ifEquals}}
+          {{/ifEquals}}
         {{/each}}
       </div>
-    </div> 
+    </div>
   </div>
 </div>
 
@@ -341,4 +378,13 @@
   function openNav() { document.getElementById("mySidenav").style.width =
   "250px"; } function closeNav() {
   document.getElementById("mySidenav").style.width = "0"; }
+</script>
+
+<script>
+  function previewImage(event) { const input = event.target; const preview =
+  document.getElementById('preview'); if (input.files && input.files[0]) { const
+  reader = new FileReader(); reader.onload = function(e) { preview.src =
+  e.target.result; preview.style.display = 'block'; }
+  reader.readAsDataURL(input.files[0]); } else { preview.src = '';
+  preview.style.display = 'none'; } }
 </script>
