@@ -9,5 +9,7 @@ const isAuthenticated=require('../app/middlewares/AuthenticateMiddleware');
 route.get('/showEmployees',isAuthenticated,adminController.indexEmployees);
 route.get('/showProducts',isAuthenticated,adminController.indexProducts);
 route.get('/homepageAdmin',isAuthenticated,adminController.homepage);
-route.get('/orderHistory',adminController.orderHistory);
+route.get('/orderHistory',isAuthenticated,adminController.orderHistory);
+
+route.post('/getDate',adminController.getDate);
 module.exports=route;

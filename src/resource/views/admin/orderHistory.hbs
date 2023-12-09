@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {{!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Include jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <!-- Include jQuery UI CSS (for styling the datepicker) -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
@@ -92,37 +97,38 @@
   </div>
 
   <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 50%;">
-
-    <div class="form-group marginB20">
-      <label style = "margin-top: 15px;">Chọn ngày:</label>
-      <div data-target-input="nearest">
-        <div >
-          <input id="datepicker" width="276" />
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group marginB20">
-      <label>Phương thức thanh toán:</label>
-      <div data-target-input="nearest" >
-        <div class="search-container">
-          <input type="text" class="search-input">
-            <div class="search-icon" onclick="toggleListview()">&#9660;</div>
-              <div class="listview">
-                <div class="list-item" onclick="selectItem(this)">Thanh toán bằng tiền mặt</div>
-                <div class="list-item" onclick="selectItem(this)">Thanh toán qua momo</div>
-                <div class="list-item" onclick="selectItem(this)">Thanh toán qua tài khoản ngân hàng</div>
-                  <!-- Thêm các mục khác nếu cần -->
+      <form  method="POST" action="/admin/getDate" id="form" name="date">
+          <div class="form-group marginB20">
+            <label style = "margin-top: 15px;">Chọn ngày:</label>
+            <div data-target-input="nearest">
+              <div >
+                <input name="date" id="datepicker" width="276" />
               </div>
-        </div>
-      </div>
-    </div>
+            </div>
+          </div>
 
-    <button
-      class="btnView" type="submit"> 
-      <i class="fa-solid fa-eye"></i> View
-    </button>
+          <div class="form-group marginB20">
+            <label>Phương thức thanh toán:</label>
+            <div data-target-input="nearest" >
+              <div class="search-container">
+                <input type="text" class="search-input">
+                  <div class="search-icon" onclick="toggleListview()">&#9660;</div>
+                    <div class="listview">
+                      <div class="list-item" onclick="selectItem(this)">Thanh toán bằng tiền mặt</div>
+                      <div class="list-item" onclick="selectItem(this)">Thanh toán qua momo</div>
+                      <div class="list-item" onclick="selectItem(this)">Thanh toán qua tài khoản ngân hàng</div>
+                        <!-- Thêm các mục khác nếu cần -->
+                    </div>
+              </div>
+            </div>
+          </div>
 
+        
+          <button
+            class="btnView" type="submit" form="form"> 
+            <i class="fa-solid fa-eye"></i> View
+          </button>
+      </form>
   </div>
 
   <table class="table caption-top">
@@ -140,36 +146,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row" style="padding-left: 30px;">1</th>
-        <td>15/11/2003</td>
-        <td>05:42 PM</td>
-        <td>TS truyền thống</td>
-        <td>0</td>
-        <td>0</td>
-        <td>25000</td>
-        <td>Hồng Phượng</td>
-      </tr>
-      <tr>
-        <th scope="row" style="padding-left: 30px;">2</th>
-        <td>15/11/2003</td>
-        <td>05:42 PM</td>
-        <td>TS truyền thống</td>
-        <td>0</td>
-        <td>0</td>
-        <td>25000</td>
-        <td>Hồng Phượng</td>
-      </tr>
-      <tr>
-        <th scope="row" style="padding-left: 30px;">3</th>
-        <td>15/11/2003</td>
-        <td>05:42 PM</td>
-        <td>TS truyền thống</td>
-        <td>0</td>
-        <td>0</td>
-        <td>25000</td>
-        <td>Hồng Phượng</td>
-      </tr>
+       {{#each orders}}
+       {{#unless admin}}
+          <tr>
+            <th scope="row" style="padding-left: 30px;">{{this.stt}}</th>
+            <td>{{this.date}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.item}}</td>
+            <td>{{this.vat}}</td>
+            <td>{{this.discount}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.customer}}</td>
+          </tr>
+
+      {{/unless}}
+      
+      {{else}}
+        <tr>
+          <td colspan="5" class="text-center">
+            Chưa có dữ liệu.
+          </td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 
@@ -200,11 +198,64 @@
         document.getElementById("mySidenav").style.width ="250px"; } 
       function closeNav() {
         document.getElementById("mySidenav").style.width = "0"; }
+      function viewData() {
+        // Lấy ngày từ datepicker
+        var selectedDate = document.getElementById('datepicker').value;
+        console.log(orders)
+      }
 
-      $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap5'
-        });
+      function compareData(data) {
+        // Thực hiện so sánh hoặc xử lý dữ liệu ở đây
+        // Ví dụ: In dữ liệu
+        console.log(data);
+      }
+
+      function displayData(data) {
+        // Xóa dữ liệu cũ trên bảng
+        var tableBody = document.querySelector('.table tbody');
+        tableBody.innerHTML = '';
+
+        // Hiển thị dữ liệu mới
+        if (data.length > 0) {
+          data.forEach(order => {
+            // Tạo hàng mới và thêm vào bảng
+            var row = tableBody.insertRow();
+            var cellID = row.insertCell(0);
+            var cellDate = row.insertCell(1);
+            var cellTime = row.insertCell(2);
+            // Thêm các ô khác tương ứng
+
+            cellID.textContent = order.stt;
+            cellDate.textContent = order.date;
+            cellTime.textContent = order.time;
+            // Thêm các ô khác tương ứng
+          });
+        } else {
+          // Hiển thị thông báo khi không có dữ liệu
+          var row = tableBody.insertRow();
+          var cell = row.insertCell(0);
+          cell.textContent = 'Chưa có dữ liệu.';
+          cell.colSpan = 8; // Số lượng cột trong bảng
+        }
+}
+
+
+
   </script>
+
+  <script>
+      $('#datepicker').datepicker({
+              uiLibrary: 'bootstrap5',
+              format: 'dd/mm/yyyy'
+          });
+
+      $("#datepicker").on("change", function() { 
+        let pickedDate = $("input").val(); 
+          console.log(pickedDate);
+          }); 
+  </script>
+
+
 
 </body>
 

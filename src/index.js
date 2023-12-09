@@ -102,6 +102,17 @@ app.engine(
 );
 
 
+// app.get('/getOrdersData', async (req, res) => {
+//   try {
+//     await client.connect();
+//     const database = client.db('MyCoffee');
+//     const collection = database.collection('orders');
+//     const result = await collection.find({ date: req.query.date }).toArray();
+//     res.json(result);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
 app.set('view engine','hbs');
 app.set('views',path.join(__dirname,'resource','views'));
