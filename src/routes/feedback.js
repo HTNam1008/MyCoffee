@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+route.get("/", feedbackController.show);
 route.post(
   "/storeFeedback",
   upload.single("image"),
