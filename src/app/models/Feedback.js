@@ -4,10 +4,11 @@ const mongooseDelete = require("mongoose-delete");
 
 const Feedback = new Schema(
   {
-    name: { type: String, maxLength: 255 },
+    author: { type: String, maxLength: 255 },
     phone: { type: String, maxLength: 255 },
     feedback: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
+    reply: { type: String, maxLength: 255 },
   },
   {
     timestamps: true,

@@ -1,5 +1,8 @@
 const Feedback = require("../models/Feedback");
-const { mutipleMongooseToObject } = require("../../util/mongoose");
+const {
+  mutipleMongooseToObject,
+  mongooseDateToString,
+} = require("../../util/mongoose");
 
 class FeedbackController {
   show(req, res, next) {
@@ -13,20 +16,23 @@ class FeedbackController {
   }
 
   storeFeedback(req, res, next) {
-    const imagePath = "/public/image/uploads/" + req.file.filename;
+    const imagePath = req.file
+      ? "/public/image/uploads/" + req.file.filename
+      : null;
 
     const feedback = new Feedback({
-      name: req.body.name,
-      phone: req.body.phone,
+      author: req.body.author,
+      phone: req.body.phone ?? null,
       feedback: req.body.feedback,
       image: imagePath,
+      reply: req.reply ?? null,
     });
 
-    console.log(feedback);
+    // console.log(feedback);
 
     feedback
       .save()
-      .then(() => res.redirect("/"))
+      .then(() => res.redirect("/feedback"))
       .catch((error) => console.log("Error:" + error));
   }
 }

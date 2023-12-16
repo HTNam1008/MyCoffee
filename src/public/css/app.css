@@ -130,7 +130,7 @@ ul.nav-pills {
 .feedback {
   height: 100vh; }
   .feedback-side-bar {
-    background-color: #e3ceaa; }
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; }
   .feedback-wrapper {
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; }
@@ -158,3 +158,20 @@ ul.nav-pills {
   border: 1px solid #c38154;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   background-color: rgba(227, 206, 170, 0.2); }
+
+li.nav-item {
+  position: relative; }
+
+.nav-feedback-item a {
+  color: #000;
+  font-size: 20px; }
+
+.nav-feedback-item ~ .nav-feedback-item::before {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  width: 80%;
+  height: 1px;
+  background-color: #7d7c7c; }
