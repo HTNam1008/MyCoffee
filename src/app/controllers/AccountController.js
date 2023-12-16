@@ -3,6 +3,18 @@ const Admin=require("../models/Admin");
 const bcrypt = require('bcrypt');
 
 class AccountController{
+    async signout(req,res,next){
+        req.session.destroy(err=>{
+            if (err){
+                res.json({success:false,msg:"Error logging out"});
+            }
+            else{
+                console.log("Sign out successfully!");
+                res.redirect('/');
+            }
+        })
+    }
+
     signin(req,res,next){
         res.render('signin');
     }

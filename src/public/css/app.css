@@ -35,7 +35,7 @@
   padding: 0 20px; }
 
 .home__search-bar {
-  width: 1000px;
+  width: 800px;
   height: 40px;
   border: 1px #C38154 solid;
   border-radius: 7px;
@@ -56,7 +56,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #F9CC76;
+  background-color: #bebebe;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px; }
@@ -118,3 +118,8 @@ ul.nav-pills {
 .product__order-button {
   width: 100%;
   color: #f1f1f1; }
+
+.shopping-cart {
+  border: 0.5px #c8c8c2 solid;
+  border-radius: 5px;
+  padding: 5px 5px 5px 10px; }

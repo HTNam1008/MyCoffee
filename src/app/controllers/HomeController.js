@@ -4,6 +4,8 @@ const {mutipleMongooseToObject}=require('../../util/mongoose');
 class HomeController{
     
     index(req,res,next){
+        const nTable=req.query.table;
+        console.log(nTable);
         const user=req.session.user;
         Product.find({})
         .then(products=>{ 

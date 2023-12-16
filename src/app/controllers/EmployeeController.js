@@ -1,5 +1,7 @@
 const Employee=require("../models/Employee")
 const {mongoosesToObject}=require('../../util/mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds=10;
 
 class EmployeeController{
     
@@ -7,7 +9,7 @@ class EmployeeController{
         res.render("employees/create");
     }
 
-    store(req,res,next){
+    async store(req,res,next){
         console.log(req.body);
         const formData=req.body;
         const newEmployee=new Employee(formData);

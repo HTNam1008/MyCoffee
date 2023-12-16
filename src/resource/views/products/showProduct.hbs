@@ -2,12 +2,15 @@
     <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
     <span>&gt;</span>
      <a style="color: rgb(100, 97, 97);" href="/products/{{product.slug}}"> {{product.name}} </a>
+     <a class="shopping-cart mr-4 pl-3" style="float: right; font-size:x-large"><i class="fa-solid fa-cart-shopping" style="width: 50px;"></i></a>
 </div>
+
+
 
 <div class="container mt-4">
     <div class="product_detail d-inline-flex">
     <img class="product__image mr-5" src="{{product.image}}" alt="{{product.name}}"/>
-    <form class="ml-5" action="" method="POST" name="product_order_detail">
+    <form class="ml-5" action="./order/{{product._id}}/add" method="POST" name="product_order_detail">
         <h2>{{product.name}}</h2>
         
         <div class="product__order-attribute mt-4">
