@@ -10,7 +10,7 @@
 <div class="container mt-4">
     <div class="product_detail d-inline-flex">
     <img class="product__image mr-5" src="{{product.image}}" alt="{{product.name}}"/>
-    <form class="ml-5" action="./order/{{product._id}}/add" method="POST" name="product_order_detail">
+    <form class="ml-5" action="./{{product._slug}}" method="POST" name="product_order_detail">
         <h2>{{product.name}}</h2>
         
         <div class="product__order-attribute mt-4">
