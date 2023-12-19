@@ -1,0 +1,209 @@
+<div class="container-fluid">
+  <div class="row feedback">
+    <div class="feedback-side-bar col-3 p-0">
+
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+          <ul class="nav flex-column">
+            <li class="nav-feedback-item">
+              <a class="nav-link active" href="/">Trang chủ</a>
+            </li>
+            <li class="nav-feedback-item">
+              <a class="nav-link active" href="/feedback">Góp ý cửa hàng</a>
+            </li>
+            <li class="nav-feedback-item">
+              <a class="nav-link" href="/account/signin">Đăng nhập</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="feedback-section col-9 p-0">
+      <div class="feedback-wrapper m-3 p-3">
+        <h2 class="feedback-title ml-1">Góp ý cửa hàng</h2>
+        <div class="feedback-wrapper-list d-flex flex-column align-items-end">
+          <button
+            class="btn btn-add-feedback font-weight-bold mr-3"
+            data-toggle="modal"
+            data-target="#feedbackModal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-envelope-paper-heart-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="m3 7.5 3.5 2L8 8.75l1.5.75 3.5-2v-6A1.5 1.5 0 0 0 11.5 0h-7A1.5 1.5 0 0 0 3 1.5zM2 3.133l-.941.502A2 2 0 0 0 0 5.4v.313l2 1.173zm12 3.753 2-1.173V5.4a2 2 0 0 0-1.059-1.765L14 3.133zm-3.693 3.324L16 6.873v6.5zm5.634 4.274L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516ZM5.693 10.21 0 13.372v-6.5zM8 1.982C9.664.309 13.825 3.236 8 7 2.175 3.236 6.336.31 8 1.982Z"
+              />
+            </svg>
+            Thêm mới
+          </button>
+          <div class="col-12 mt-3">
+            <ul class="feedback-list">
+              {{#each feedbacks}}
+                {{#unless this.reply}}
+
+                  <li class="feedback-item p-2 mb-3">
+                    <h5 class="feedback-author">{{this.author}}</h5>
+                    <div class="feedback-content d-flex m-3">
+                      <div class="col-6 d-flex flex-column">
+                        <div class="feedback-content">{{this.feedback}}</div>
+                        <div class="feedback-date mt-4">
+                          <div class="feedback-date mt-4">{{#dateToString
+                              this.createdAt
+                            }}{{/dateToString}}</div></div>
+                      </div>
+                      <div class="col-6">
+                        <img class="feedback-img" src="{{this.image}}" alt="" />
+                      </div>
+                    </div>
+                    <div class="reply-wrapper m-3 p-1">
+                      <h5 class="feedback-author">{{this.author}}</h5>
+                      <div class="feedback-content row d-flex flex-wrap m-3">
+                        <div class="d-flex flex-column">
+                          <div class="feedback-content">{{this.feedback}}</div>
+                          <div class="feedback-date mt-4">{{#dateToString
+                              this.createdAt
+                            }}{{/dateToString}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                {{/unless}}
+              {{/each}}
+              {{! <li class="feedback-item p-2 mb-3">
+                <h5 class="feedback-author">Hồng Phượng</h5>
+                <div class="feedback-content d-flex m-3">
+                  <div class="col-6 d-flex flex-column">
+                    <div class="feedback-content">Quán xinh Nhân viên nhiệt
+                      tình. Đồ uống hơi ngọt so với khẩu vị mình. Quán hơi quá
+                      lạnh. Order chuyên nghiệp</div>
+                    <div class="feedback-date mt-4">05:42
+                      PM&nbsp;&nbsp;&nbsp;15/11/2023</div>
+                    <div
+                      class="feedback-date mt-4"
+                    >n.toLocaleString("en-US")</div>
+
+                  </div>
+                  <div class="col-6">
+                    <img
+                      class="feedback-img"
+                      src="https://picsum.photos/200"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="reply-wrapper m-3 p-1">
+                  <h5 class="feedback-author">Thúy Hường</h5>
+                  <div class="feedback-content row d-flex flex-wrap m-3">
+                    <div class="d-flex flex-column">
+                      <div class="feedback-content">Cảm ơn bạn đã ghé quán mình,
+                        bọn mình sẽ khắc phục vấn đề máy lạnh</div>
+                      <div class="feedback-date mt-4">05:42
+                        PM&nbsp;&nbsp;&nbsp;15/11/2023</div>
+                    </div>
+                  </div>
+                </div>
+              </li> }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Feedback -->
+<div
+  class="modal fade"
+  id="feedbackModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="feedbackModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <form
+      method="POST"
+      action="/feedback/storeFeedback"
+      enctype="multipart/form-data"
+    >
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-header-wrapper d-flex align-items-center h2">
+            <div class="modal-header-icon mr-3">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <h5 class="modal-title h1" id="feedbackModalLabel">Góp ý cửa hàng</h5>
+          </div>
+
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="author">Họ tên</label>
+            <input type="text" class="form-control" id="author" name="author" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="text" class="form-control" id="phone" name="phone" />
+          </div>
+          <div class="form-group">
+            <label for="feadback_content">Góp ý với cửa hàng</label>
+            <textarea
+              class="form-control"
+              id="feadback_content"
+              name="feedback"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image">Thêm hình ảnh</label>
+            <input
+              type="file"
+              class="form-control"
+              id="image"
+              name="image"
+              accept=".png, .jpg"
+              onchange="previewImage(event)"
+            />
+            <img
+              src=""
+              id="preview"
+              style="max-width: 500px; display: none;"
+              alt="Preview"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >Hủy bỏ</button>
+          <button type="submit" class="btn btn-outline-success">Lưu</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function previewImage(event) { const input = event.target; const preview =
+  document.getElementById('preview'); if (input.files && input.files[0]) { const
+  reader = new FileReader(); reader.onload = function(e) { preview.src =
+  e.target.result; preview.style.display = 'block'; }
+  reader.readAsDataURL(input.files[0]); } else { preview.src = '';
+  preview.style.display = 'none'; } }
+</script>

@@ -1,5 +1,7 @@
-const Employee=require("../models/Employee")
+const Employee=require("../models/Employee");
+const Product=require("../models/Product");
 const {mongoosesToObject}=require('../../util/mongoose');
+const {mutipleMongooseToObject}=require('../../util/mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds=10;
 
@@ -22,7 +24,6 @@ class EmployeeController{
     }
 
     edit(req,res,next){
-
         Employee.findById(req.params.id)
            .then (employee => res.render('employees/edit',{
             employee: mongoosesToObject(employee)
@@ -41,6 +42,18 @@ class EmployeeController{
         Employee.deleteOne({_id:req.params.id})
            .then(()=>res.redirect('back'))
            .catch(next)
+    }
+
+    homepage(req,res,next){
+        const user=req.session.user;
+        Product.find({})
+        .then(products=>{ 
+            res.render('home',{
+                products:mutipleMongooseToObject(products),
+                employee:user});
+        })
+        .catch(next); 
+
     }
 
 }
