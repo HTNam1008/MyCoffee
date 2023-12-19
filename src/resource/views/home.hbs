@@ -7,18 +7,25 @@
       class="closebtn"
       onclick="closeNav()"
     >&times;</a>
-    {{#if user}}
-      <a href="#">Trang chủ</a>
-      <a href="#">Lịch sử góp ý</a>
-      <a href="/admin/orderHistory">Quản lý order</a>
-      <a href="#">Quản lý doanh thu</a>
-      <a href="/admin/showEmployees">Quản lý nhân viên</a>
-      <a href="/admin/showProducts">Quản lý sản phẩm</a>
-      <a href="#">Đăng xuất</a>
+    {{#if admin}}
+    <a href="/admin/homepage">Trang chủ</a>
+    <a href="#">Lịch sử góp ý</a>
+    <a href="#">Quản lý order</a>
+    <a href="#">Quản lý doanh thu</a>
+    <a href="/admin/showEmployees">Quản lý nhân viên</a>
+    <a href="/admin/showProducts">Quản lý sản phẩm</a>
+    <a href="/account/signout">Đăng xuất</a>
     {{else}}
-      <a href="#">Trang chủ</a>
-      <a href="/feedback">Góp ý cửa hàng</a>
-      <a href="/account/signin">Đăng nhập</a>
+        {{#if employee}}
+          <a href="/employees/homepage">Trang chủ</a>
+          <a href="#">Quản lý góp ý</a>
+          <a href="#">Order tại quầy</a>
+          <a href="/account/signout">Đăng xuất</a>
+        {{else}}
+            <a href="#">Trang chủ</a>
+            <a href="/feedback">Góp ý cửa hàng</a>
+            <a href="/account/signin">Đăng nhập</a>
+        {{/if}}
     {{/if}}
 
   </div>
@@ -30,7 +37,7 @@
     >&#9776;</span>
     <a class="navbar-brand ml-3"><span class="home__nav-title">My Coffee</span></a>
   </div>
-  <form class="form-inline">
+  <form class="form-inline ml-5 pl-2">
     <input
       class="mr-sm-3 home__search-bar"
       type="search"
@@ -43,6 +50,7 @@
       type="submit"
     >Search</button>
   </form>
+   <a class="shopping-cart pr-3" style="float: right;"><i class="fa-solid fa-cart-shopping"></i></a>
 </nav>
 
 <div class="container-fluid">

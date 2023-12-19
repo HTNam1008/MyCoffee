@@ -66,7 +66,36 @@
     padding: 36px 60px;
     background: #e3ceaa;
     color: black;
+<<<<<<< HEAD
+    font-size: 80px;
+    font-family: Oleo Script;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+.body__navbar{
+    padding: 0 20px;
+    
+}
+
+.home__search-bar{
+    width: 800px;
+    height: 40px;
+    border: 1px #C38154 solid;
+    border-radius: 7px;
+    padding: 0 10px;
+}
+
+.home__seach-btn{
+    width: 100px;
+    border: 1px #C38154 solid;
+    color: #C38154;
+}
+
+.home__nav-title{
+    font-weight: 600;
+=======
   }
+>>>>>>> d57e745bcb99216156651d2b5f206a1e4f0bce5c
 }
 
 .sidenav {
@@ -210,6 +239,16 @@ li.nav-item {
   position: relative;
 }
 
+<<<<<<< HEAD
+ .shopping-cart{
+    border: 0.5px #c8c8c2 solid;
+    border-radius: 5px;
+    padding: 5px 5px 5px 10px;
+ }
+
+
+ 
+=======
 .nav-feedback-item a {
   color: #000;
   font-size: 20px;
@@ -225,3 +264,4 @@ li.nav-item {
   height: 1px;
   background-color: #7d7c7c;
 }
+>>>>>>> d57e745bcb99216156651d2b5f206a1e4f0bce5c

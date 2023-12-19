@@ -35,7 +35,7 @@
   padding: 0 20px; }
 
 .home__search-bar {
-  width: 1000px;
+  width: 800px;
   height: 40px;
   border: 1px #c38154 solid;
   border-radius: 7px;
@@ -125,6 +125,14 @@ ul.nav-pills {
 
 .product__order-button {
   width: 100%;
+<<<<<<< HEAD
+  color: #f1f1f1; }
+
+.shopping-cart {
+  border: 0.5px #c8c8c2 solid;
+  border-radius: 5px;
+  padding: 5px 5px 5px 10px; }
+=======
   color: red; }
 
 .feedback {
@@ -175,3 +183,4 @@ li.nav-item {
   width: 80%;
   height: 1px;
   background-color: #7d7c7c; }
+>>>>>>> d57e745bcb99216156651d2b5f206a1e4f0bce5c

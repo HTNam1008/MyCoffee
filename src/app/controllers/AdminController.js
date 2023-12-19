@@ -8,11 +8,11 @@ const { format } = require("morgan");
 
 class AdminController{
     indexEmployees(req,res,next){
-        const user=req.session.user;
+        const admin=req.session.user;
         Employee.find({})
         .then(employees=>{ 
             res.render('admin/showEmployees',{
-                employees:mutipleMongooseToObject(employees), user:user});
+                employees:mutipleMongooseToObject(employees), admin:admin});
         })
         .catch(next); 
 
@@ -22,7 +22,7 @@ class AdminController{
         Product.find({})
         .then(products=>{ 
             res.render('admin/showProducts',{
-                products:mutipleMongooseToObject(products), user:user});
+                products:mutipleMongooseToObject(products), admin:admin});
         })
         .catch(next); 
 
@@ -33,7 +33,7 @@ class AdminController{
         .then(products=>{ 
             res.render('home',{
                 products:mutipleMongooseToObject(products),
-                user:user});
+                admin:user});
         })
         .catch(next); 
 
