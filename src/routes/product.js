@@ -12,6 +12,7 @@ const ProductController = require('../app/controllers/ProductController');
 
 route.get('/addProduct',ProductController.addProduct);
 route.get('/:slug',ProductController.show);
+route.post('/:slug', ProductController.addToCart);
 route.get('/:id/editProduct',ProductController.edit);
 route.delete('/:id',ProductController.destroy);
 

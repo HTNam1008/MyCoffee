@@ -1,6 +1,7 @@
 const Product=require("../models/Product");
 const slugify = require('slugify');
 const {mongoosesToObject}=require('../../util/mongoose');
+const OrderDetail = require("../models/OrderDetail")
 
 class ProductController{
     show(req,res,next){
@@ -85,7 +86,51 @@ class ProductController{
           });
 
           
-  }
+    }
+
+    addToCart(req, res, next){
+      const formData = req.body;
+      Product.findOne({ slug: req.params.slug })
+          .then(product => {
+              if (product) {
+                  // Assuming 'price' is a property of the product object
+                  const productPrice = product.price;
+                  const newOrder = new OrderDetail({
+                    productName: formData.name,
+                    price: productPrice,
+                    size: formData.size,
+                    icePercent: formData.ice, 
+                    sugarPercent: formData.sugar,
+                    extra: formData.topping,
+                    quantity: formData.quantity,
+                    total : productPrice
+                  });
+                  for (const extra of newOrder.extra)
+                  {
+                    if (extra == "tranchau")
+                    {
+                       newOrder.total += 8000;
+                    }
+                    if (extra == "banhplan")
+                    {
+                       newOrder.total += 7000;
+                    }
+                    if (extra == "thach")
+                    {
+                       newOrder.total += 5000;
+                    }
+                  }
+                  newOrder.total = newOrder.total*newOrder.quantity;
+                  newOrder.save()
+                      .then(() => res.redirect('/'))
+                      .catch(error => console.log("Error:" + error));
+
+                  
+              } else {
+                  res.status(404).send('Product not found');
+              }
+          })
+    }
   
 
     destroy(req,res,next){
