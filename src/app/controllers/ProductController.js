@@ -96,12 +96,15 @@ class ProductController{
                   // Assuming 'price' is a property of the product object
                   const productPrice = product.price;
                   const newOrder = new OrderDetail({
-                    productName: formData.name,
+                    productId:product._id,
+                    productName: product.name,
+                    tableId: req.session.tableID,
                     price: productPrice,
                     size: formData.size,
                     icePercent: formData.ice, 
                     sugarPercent: formData.sugar,
                     extra: formData.topping,
+                    amount: productPrice,
                     quantity: formData.quantity,
                     total : productPrice
                   });
@@ -109,18 +112,18 @@ class ProductController{
                   {
                     if (extra == "tranchau")
                     {
-                       newOrder.total += 8000;
+                       newOrder.amount += 8000;
                     }
                     if (extra == "banhplan")
                     {
-                       newOrder.total += 7000;
+                       newOrder.amount += 7000;
                     }
                     if (extra == "thach")
                     {
-                       newOrder.total += 5000;
+                       newOrder.amount += 5000;
                     }
                   }
-                  newOrder.total = newOrder.total*newOrder.quantity;
+                  newOrder.total = newOrder.amount*newOrder.quantity;
                   newOrder.save()
                       .then(() => res.redirect('/'))
                       .catch(error => console.log("Error:" + error));
@@ -131,6 +134,8 @@ class ProductController{
               }
           })
     }
+
+    
   
 
     destroy(req,res,next){

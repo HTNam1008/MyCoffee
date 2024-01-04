@@ -1,5 +1,7 @@
 const Product = require("../models/Product");
 const { mutipleMongooseToObject } = require("../../util/mongoose");
+const Table =require("../models/Table");
+const Employee=require("../models/Employee")
 
 /*
 class HomeController{
@@ -34,15 +36,18 @@ class HomeController{
   }
 }
 */
-const tables = {
-  A1: { id: 'A1' },
-  A2: { id: 'A2' },
-  // Thông tin về các bàn khác...
-};
+
+
 
 
 class HomeController {
-  index(req, res, next) {
+  async index(req, res, next) {
+    var tables=await Table.find({});
+    var tableList=[];
+    for (var obj of tables){
+      tableList.push(obj.noOfTable);
+    } 
+    
     const tableId = req.query.table; // Lấy mã bàn từ param table trong URL
     if (!tableId)
     {
@@ -69,8 +74,7 @@ class HomeController {
         .catch(next); 
     }
     else{
-      const table = tables[tableId]; // Lấy thông tin của bàn từ danh sách tables
-      if (!table) {
+      if (tableList[0]!=tableId) {
           res.status(404).send('Không tìm thấy thông tin của bàn'); //
       } else {
           req.session.tableID = tableId;

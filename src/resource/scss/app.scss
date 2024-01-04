@@ -66,11 +66,11 @@
     padding: 36px 60px;
     background: #e3ceaa;
     color: black;
-<<<<<<< HEAD
     font-size: 80px;
     font-family: Oleo Script;
     font-weight: 400;
     word-wrap: break-word;
+}
 }
 .body__navbar{
     padding: 0 20px;
@@ -93,9 +93,6 @@
 
 .home__nav-title{
     font-weight: 600;
-=======
-  }
->>>>>>> d57e745bcb99216156651d2b5f206a1e4f0bce5c
 }
 
 .sidenav {
@@ -186,8 +183,8 @@ ul.nav-pills {
   color: #6c6767;
 }
 .product__order-button {
-  width: 100%;
-  color: red;
+  width:280px;
+  color: rgb(246, 246, 246);
 }
 
 .feedback {
@@ -239,16 +236,18 @@ li.nav-item {
   position: relative;
 }
 
-<<<<<<< HEAD
  .shopping-cart{
     border: 0.5px #c8c8c2 solid;
     border-radius: 5px;
     padding: 5px 5px 5px 10px;
  }
 
+.order__infor-detail{
+   border: 0px #c8c8c2 solid;
+   text-align-last: right;
+}
 
- 
-=======
+
 .nav-feedback-item a {
   color: #000;
   font-size: 20px;
@@ -264,4 +263,3 @@ li.nav-item {
   height: 1px;
   background-color: #7d7c7c;
 }
->>>>>>> d57e745bcb99216156651d2b5f206a1e4f0bce5c

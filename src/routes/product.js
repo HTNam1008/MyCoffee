@@ -3,9 +3,6 @@ const route=express.Router();
 const multer = require('multer');
 const path = require('path');
 
-
-
-const courseController=require('../app/controllers/ProductController');
 const ProductController = require('../app/controllers/ProductController');
 
 

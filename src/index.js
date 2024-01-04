@@ -6,9 +6,17 @@ const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
-
+const MongoStore=require('connect-mongo');
 const app = express();
 const port = 3000;
+const mongoose=require("mongoose");
+
+
+
+const Admin = require("./app/models/Admin");
+
+const route = require("./routes");
+const db = require("./config/db");
 
 app.use(
   session({
@@ -17,11 +25,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-const Admin = require("./app/models/Admin");
-
-const route = require("./routes");
-const db = require("./config/db");
 
 const createRootAdmin = async () => {
   try {

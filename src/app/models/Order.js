@@ -6,13 +6,14 @@ const mongooseDelete = require('mongoose-delete');
 //mongoose.plugin(slug);
 
 const Order=new Schema({
-    stt:{type: Number},
-    date:{type:Date},
-    item:{type:String,maxLength:255},
-    vat:{type: Number},
+    tableId:{type: Number},
+    itemList:{type:Array},
     discount:{type:Number},
     amount:{type:Number},
-    customer:{type:String,maxLength:255},
+    total:{type:Number},
+    note:{type:String},
+    status:{type:String},
+    employee:{type:String,maxLength:255},
 },{
     timestamps:true,
 });
