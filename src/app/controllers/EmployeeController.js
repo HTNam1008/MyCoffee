@@ -11,6 +11,11 @@ class EmployeeController{
         res.render("employees/create");
     }
 
+    showOrders(req,res,next){
+        res.render("employees/orderList");
+    }
+
+
     async store(req,res,next){
         console.log(req.body);
         const formData=req.body;

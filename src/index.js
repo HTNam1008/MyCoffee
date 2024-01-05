@@ -9,7 +9,9 @@ const session = require("express-session");
 const MongoStore=require('connect-mongo');
 const app = express();
 const port = 3000;
+const https=require('https');
 const mongoose=require("mongoose");
+const fs = require('fs');
 
 
 
@@ -128,6 +130,11 @@ app.set("views", path.join(__dirname, "resource", "views"));
 
 route(app);
 
-app.listen(port, () =>
-  console.log(`App listening at http:://localhost:${port}`)
+const server=https.createServer({
+  key: fs.readFileSync('./src/_certs/demo.key'),
+  cert: fs.readFileSync('./src/_certs/demo.cert')
+},app);
+
+server.listen(port, () =>
+  console.log(`App listening at https:://localhost:${port}`)
 );
