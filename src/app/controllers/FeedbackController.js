@@ -1,15 +1,13 @@
 const Feedback = require("../models/Feedback");
-const {
-  mutipleMongooseToObject,
-  mongooseDateToString,
-} = require("../../util/mongoose");
+const { mutipleMongooseToObject } = require("../../util/mongoose");
+const { filterFeedbacks } = require("../../util/filterFeedback");
 
 class FeedbackController {
   show(req, res, next) {
     Feedback.find({})
       .then((feedbacks) => {
         res.render("feedback/showFeedback", {
-          feedbacks: mutipleMongooseToObject(feedbacks),
+          feedbacks: filterFeedbacks(mutipleMongooseToObject(feedbacks)),
         });
       })
       .catch(next);
@@ -25,7 +23,7 @@ class FeedbackController {
       phone: req.body.phone ?? null,
       feedback: req.body.feedback,
       image: imagePath,
-      reply: req.reply ?? null,
+      replyID: null,
     });
 
     // console.log(feedback);
