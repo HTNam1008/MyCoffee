@@ -1,0 +1,206 @@
+<div class="container-fluid">
+  <div class="row feedback">
+    <div class="feedback-side-bar col-3 p-0">
+
+      <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+          <ul class="nav flex-column">
+            <li class="nav-feedback-item">
+              <a class="nav-link active" href="/employees/homepage">Trang chủ</a>
+            </li>
+            <li class="nav-feedback-item">
+              <a class="nav-link active" href="/employees/feedback">Góp ý cửa
+                hàng</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="feedback-section col-9 p-0">
+      <div class="feedback-wrapper m-3 p-3">
+        <h2 class="feedback-title ml-1">Góp ý cửa hàng</h2>
+        <div class="feedback-wrapper-list d-flex flex-column align-items-end">
+          <div class="col-12 mt-3">
+            <ul class="feedback-list">
+              {{#each feedbacks}}
+                {{#unless this.reply}}
+                  <li class="feedback-item p-2 mb-3">
+                    <h5 class="feedback-author">{{this.author}}</h5>
+                    <div class="feedback-content d-flex m-3">
+                      <div class="col-6 d-flex flex-column">
+                        <div class="feedback-content">{{this.feedback}}</div>
+                        <div class="feedback-date mt-4">
+                          <div class="feedback-date mt-4">{{#dateToString
+                              this.createdAt
+                            }}{{/dateToString}}</div></div>
+                      </div>
+                      <div class="col-4">
+                        {{#if this.image}}
+                          <img
+                            class="feedback-img"
+                            src="{{this.image}}"
+                            alt=""
+                          />
+                        {{/if}}
+                      </div>
+                      <div class="col-2">
+                        <button
+                          class="btn w-100 btn-hide-feedback font-weight-bold mr-3 mb-2"
+                          data-id="{{this._id}}"
+                          data-toggle="modal"
+                          data-target="#confirmModal"
+                        >
+                          <i class="fa-solid fa-eye-slash"></i>
+                          Ẩn
+                        </button>
+                        {{#if this.replyID}}
+                          <button
+                            class="btn w-100 btn-reply-feedback font-weight-bold mr-3"
+                            data-id="{{this._id}}"
+                            data-toggle="collapse"
+                            data-target="#collapseReply{{this._id}}"
+                            disabled
+                          >
+                            <i class="fa-solid fa-reply"></i>
+                            Phản hồi
+                          </button>
+                        {{else}}
+                          <button
+                            class="btn w-100 btn-reply-feedback font-weight-bold mr-3"
+                            data-id="{{this._id}}"
+                            data-toggle="collapse"
+                            data-target="#collapseReply{{this._id}}"
+                          >
+                            <i class="fa-solid fa-reply"></i>
+                            Phản hồi
+                          </button>
+                        {{/if}}
+                      </div>
+                    </div>
+
+                    {{! Reply }}
+                    {{#if this.replyID}}
+                      <div class="reply-wrapper m-3 p-1">
+                        <h5 class="feedback-author">{{this.replyID.author}}</h5>
+                        <div class="feedback-content row d-flex flex-wrap m-3">
+                          <div class="d-flex flex-column">
+                            <div
+                              class="feedback-content"
+                            >{{this.replyID.feedback}}</div>
+                            <div class="feedback-date mt-4">{{#dateToString
+                                this.replyID.createdAt
+                              }}{{/dateToString}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    {{else}}
+                      <div
+                        class="collapse reply-wrapper m-3 p-1"
+                        id="collapseReply{{this._id}}"
+                      >
+                        <form method="POST" action="/employees/feedback/">
+                          <div class="form-group">
+                            <label for="replyFormControl">Phản hồi góp ý</label>
+                            <textarea
+                              class="form-control"
+                              id="replyFormControl"
+                              name="feedback"
+                              rows="3"
+                            ></textarea>
+                          </div>
+                          <div class="form-group">
+                            <input
+                              type="hidden"
+                              name="id"
+                              value="{{this._id}}"
+                            />
+                          </div>
+                          <div class="reply-footer d-flex justify-content-end">
+                            <button
+                              type="button"
+                              class="btn btn-secondary mr-1"
+                            >Hủy bỏ</button>
+                            <button
+                              type="submit"
+                              class="btn btn-outline-success"
+                            >Lưu</button>
+                          </div>
+                        </form>
+                      </div>
+                    {{/if}}
+                  </li>
+                {{/unless}}
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Confirm -->
+<div
+  class="modal fade"
+  id="confirmModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-header-wrapper d-flex align-items-center h2">
+          <div class="modal-header-icon mr-3">
+            <i class="fa-solid fa-eye-slash"></i>
+          </div>
+          <h5 class="modal-title h1" id="feedbackModalLabel">Xác nhận ẩn góp ý</h5>
+        </div>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn ẩn góp ý này?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >Hủy</button>
+        <button
+          id="btn-hide-feedback"
+          type="button"
+          class="btn btn-primary"
+        >Ẩn</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="hide-feedback-form" method="POST"></form>
+<form name="reply-feedback-form" method="POST"></form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => { let feedbackId; const
+  hideForm = document.forms['hide-feedback-form'];
+  $('#confirmModal').on('show.bs.modal', (e) => { const button =
+  $(e.relatedTarget); feedbackId = button.data('id'); }); const btnHideFeeback =
+  document.getElementById('btn-hide-feedback'); btnHideFeeback.onclick = () => {
+  hideForm.action = '/employees/feedback/' + feedbackId + '?_method=DELETE';
+  hideForm.submit(); } })
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => { let feedbackId; const
+  replyForm = document.forms['reply-feedback-form'];
+  $('#replyModal').on('show.bs.modal', (e) => { const button =
+  $(e.relatedTarget); feedbackId = button.data('id'); }); })
+</script>
