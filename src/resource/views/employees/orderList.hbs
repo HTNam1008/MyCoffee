@@ -23,6 +23,10 @@
     alert('New order');
   })
 
+  socket.on('alert-new-payment',(data)=>{
+    alert(`Order ${data} was payed`);
+  })
+
   socket.on('updateOrders', (orders) => {
       const ordersList = document.getElementById('orders-list');
       ordersList.innerHTML = '';
@@ -69,7 +73,9 @@
       viewDetailBtn.type = 'button';
       viewDetailBtn.className = 'btn btn-info mr-2';
       viewDetailBtn.innerText = 'Xem chi tiết';
-      const confirmBtn = document.createElement('button');
+
+      if (order.status!="done"){
+        const confirmBtn = document.createElement('button');
       confirmBtn.type = 'button';
       confirmBtn.className = 'btn btn-success';
       confirmBtn.innerText = 'Confirm';
@@ -78,15 +84,25 @@
       confirmBtn.addEventListener('click', function () {
       // Get the data-id attribute value
          var orderId = this.getAttribute('data-id');
-
-        // Emit the socket event with the orderId
-        socket.emit('confirm-waiting', orderId);
-        
+         if (order.status=="waiting"){
+           // Emit the socket event with the orderId
+           socket.emit('confirm-waiting', orderId);
+         }
+         else if (order.status=="paying"){
+          // Emit the socket event with the orderId
+           socket.emit('confirm-paying', orderId);
+         }
+         else if (order.status=="preparing"){
+          // Emit the socket event with the orderId
+           socket.emit('confirm-preparing', orderId);
+         }
       });
-
-
-      col2.appendChild(viewDetailBtn);
       col2.appendChild(confirmBtn);
+
+      }
+      
+      col2.appendChild(viewDetailBtn);
+      
 
       // Append everything
       row.appendChild(col1);
