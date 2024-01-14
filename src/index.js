@@ -12,11 +12,8 @@ const port = 3000;
 const https=require('https');
 const mongoose=require("mongoose");
 const fs = require('fs');
-
-
-
 const Admin = require("./app/models/Admin");
-
+const Order=require("./app/models/Order")
 const route = require("./routes");
 const db = require("./config/db");
 
@@ -130,6 +127,14 @@ app.set("views", path.join(__dirname, "resource", "views"));
 
 route(app);
 
+app.get('/cart/order/wait', (req,res,next)=>{
+    res.render('cart/wait',{order:req.session.yourOrder});
+})
+
+app.get('/cart/order/pay', (req,res,next)=>{
+    res.send("Vui lòng thanh toán");
+})
+
 const server=https.createServer({
   key: fs.readFileSync('./src/_certs/demo.key'),
   cert: fs.readFileSync('./src/_certs/demo.cert')
@@ -138,3 +143,73 @@ const server=https.createServer({
 server.listen(port, () =>
   console.log(`App listening at https:://localhost:${port}`)
 );
+
+const socketIo = require('socket.io');
+const io = socketIo(server);
+
+io.on("connection", function(socket){
+   const orderStatus=socket.handshake.query.status;
+   console.log(orderStatus);
+
+   if (orderStatus=="waiting"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+   }
+   else if (orderStatus=="paying"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+   }
+
+   socket.on('confirm-waiting', (data)=>{
+      console.log(data);
+
+      Order.findById(data)
+          .then (order => {
+                order.status="paying";
+                return order.save();
+          })
+          .then (updatedOrder => {
+            (async () => {
+              try {
+              const waitingOrders = await getOrder(orderStatus);
+              io.emit("updateOrders",waitingOrders);
+               } catch (error) {
+              console.error(error);
+            }
+            })();
+
+            io.emit("to-paying",data);
+            
+          })
+          .catch();
+    } 
+  )
+
+  socket.on('new-order', (data)=>{
+      io.emit('alert-new-order',data);
+       } 
+  )
+   
+})
+
+
+
+async function getOrder(status) {
+  try {
+    return await Order.find({ status: status }).exec();
+  } catch (error) {
+    throw error;
+  }
+}

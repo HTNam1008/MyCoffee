@@ -14,7 +14,6 @@ class CartController{
             for (var obj of orders){
                 totalCost+=obj.total;
             }
-            console.log(req.session.orders);
             res.render('cart/show',{orders:mutipleMongooseToObject(orders), total: totalCost, discount: 0})
         })
         .catch(next); 
@@ -37,9 +36,21 @@ class CartController{
             status: "waiting",
             employee: ""
           });
+    
 
         newOrder.save()
-          .then(() =>  res.send("Vui lòng chờ xác nhận của nhân viên"))
+        //   .then(()=>{
+        //     for (var obj of itemList){
+        //         console.log(obj._id);
+        //         OrderDetail.deleteOne({_id:obj._id})
+        //         .then()
+        //         .catch(next)
+        //     }
+        //   })
+          .then((order) => {
+            req.session.yourOrder=mongoosesToObject(order);
+            res.redirect('/cart/order/wait')
+          })
           .catch(error => console.log("Error:" + error));
        
     }

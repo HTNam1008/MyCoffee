@@ -12,7 +12,15 @@ class EmployeeController{
     }
 
     showOrders(req,res,next){
-        res.render("employees/orderList");
+        
+        const status=req.query.status;
+        if (status){
+            res.render("employees/orderList",{status:status});
+        }
+        else{
+            res.render("employees/orderList",{status:"waiting"});
+        }
+        
     }
 
 
