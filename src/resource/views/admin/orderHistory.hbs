@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
   <style>
     .marginB20{
@@ -136,11 +137,12 @@
       <tr>
         <th scope="col" style="padding-left: 30px;">ID</th>
         <th scope="col">DATE</th>
-        <th scope="col">TIME</th>
+        <th scope="col">STATUS</th>
         <th scope="col">ITEM</th>
         <th scope="col">VAT</th>
         <th scope="col">DISCOUNT</th>
         <th scope="col">AMOUNT</th>
+        <th scope="col">NOTE</th>
         <th scope="col">CUSTOMER</th>
 
       </tr>
@@ -149,14 +151,21 @@
        {{#each orders}}
        {{#unless admin}}
           <tr>
-            <th scope="row" style="padding-left: 30px;">{{this.stt}}</th>
-            <td>{{this.date}}</td>
-            <td>{{this.date}}</td>
-            <td>{{this.item}}</td>
+            <th scope="row" style="padding-left: 30px;">{{this.tableId}}</th>
+            <td>{{formatDate this.createdAt}}</td>
+            <td>{{this.status}}</td>
+            <td>
+                {{#each this.itemList}}
+                    {{this.productName}}
+                    {{#unless @last}}, {{/unless}}
+                {{/each}}
+            </td>
+
             <td>{{this.vat}}</td>
             <td>{{this.discount}}</td>
             <td>{{this.amount}}</td>
-            <td>{{this.customer}}</td>
+            <td>{{this.note}}</td>
+            <td>{{this.employee}}</td>
           </tr>
 
       {{/unless}}
@@ -170,7 +179,18 @@
       {{/each}}
     </tbody>
   </table>
+  <script>
+      function formatDate(dateString) {
+          // Kiểm tra xem dateString có giá trị không
+          if (!dateString) return "";
 
+          // Sử dụng moment để định dạng lại ngày giờ
+          var formattedDate = moment(dateString).utcOffset(7).format('DD/MM/YY HH:mm:ss');
+          
+          return formattedDate;
+      }
+      
+  </script>
   <script>
       function toggleListview() {
         const listview = document.querySelector('.listview');
@@ -237,10 +257,7 @@
           cell.textContent = 'Chưa có dữ liệu.';
           cell.colSpan = 8; // Số lượng cột trong bảng
         }
-}
-
-
-
+      }
   </script>
 
   <script>
@@ -251,7 +268,7 @@
 
       $("#datepicker").on("change", function() { 
         let pickedDate = $("input").val(); 
-          console.log(pickedDate);
+          //console.log(pickedDate);
           }); 
   </script>
 

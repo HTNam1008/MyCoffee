@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const saltRounds=10;
 
 class EmployeeController{
-    
     create(req,res,next){
         res.render("employees/create");
     }
