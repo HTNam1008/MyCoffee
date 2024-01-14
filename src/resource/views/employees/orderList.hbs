@@ -1,0 +1,122 @@
+<div class="container mt-4">
+  <h2>Danh sách Order</h2>  
+  <ul class="list-group mt-2 flex-row" id="orderStatusList">  
+   <li class="list-group-item order-status"><a class="text-dark ml-4 " href="/employees/showOrders?status=waiting">Chờ xác nhận</a></li>
+   <li class="list-group-item order-status"><a class="text-dark ml-4" href="/employees/showOrders/?status=paying" >Chưa thanh toán</a></li>
+   <li class="list-group-item order-status"><a class="text-dark ml-4" href="/employees/showOrders/?status=preparing" >Đang chuẩn bị</a></li>
+   <li class="list-group-item order-status"><a class="text-dark ml-4" href="/employees/showOrders/?status=done" >Đã hoàn thành</a></li>
+  </ul>
+</div>
+
+<div id="orders-list" class="container mt-4">
+  
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+<script>
+  const url = window.location.origin;
+  const socket = io(url, { query: `status={{status}}` });
+
+  socket.on('alert-new-order',()=>{
+    alert('New order');
+  })
+
+  socket.on('alert-new-payment',(data)=>{
+    alert(`Order ${data} was payed`);
+  })
+
+  socket.on('updateOrders', (orders) => {
+      const ordersList = document.getElementById('orders-list');
+      ordersList.innerHTML = '';
+
+      orders.forEach((order) => {
+        console.log(order);
+        // Create card element for each order
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      // Card header
+      const cardHeader = document.createElement('div');
+      cardHeader.className = 'card-header';
+      const cardTitle = document.createElement('h5');
+      cardTitle.className = 'card-title';
+      cardTitle.innerText = `Order ${order._id}`;
+      const span = document.createElement('span');
+      span.innerText = order._id;
+      cardTitle.appendChild(span);
+      cardHeader.appendChild(cardTitle);
+
+      // Card body
+      const cardBody = document.createElement('div');
+      cardBody.className = 'card-body';
+
+      // Row inside card body
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      // Column 1 (Table ID and Total)
+      const col1 = document.createElement('div');
+      col1.className = 'col-md-6';
+      const tableId = document.createElement('p');
+      tableId.innerHTML = `<strong>Table ID:</strong> ${order.tableId}`;
+      const total = document.createElement('p');
+      total.innerHTML = `<strong>Total:</strong> ${order.total} VNĐ`;
+      col1.appendChild(tableId);
+      col1.appendChild(total);
+
+      // Column 2 (Buttons)
+      const col2 = document.createElement('div');
+      col2.className = 'mt-3';
+      const viewDetailBtn = document.createElement('button');
+      viewDetailBtn.type = 'button';
+      viewDetailBtn.className = 'btn btn-info mr-2';
+      viewDetailBtn.innerText = 'Xem chi tiết';
+
+      if (order.status!="done"){
+        const confirmBtn = document.createElement('button');
+      confirmBtn.type = 'button';
+      confirmBtn.className = 'btn btn-success';
+      confirmBtn.innerText = 'Confirm';
+      confirmBtn.setAttribute('data-id', order._id);
+
+      confirmBtn.addEventListener('click', function () {
+      // Get the data-id attribute value
+         var orderId = this.getAttribute('data-id');
+         if (order.status=="waiting"){
+           // Emit the socket event with the orderId
+           socket.emit('confirm-waiting', orderId);
+         }
+         else if (order.status=="paying"){
+          // Emit the socket event with the orderId
+           socket.emit('confirm-paying', orderId);
+         }
+         else if (order.status=="preparing"){
+          // Emit the socket event with the orderId
+           socket.emit('confirm-preparing', orderId);
+         }
+      });
+      col2.appendChild(confirmBtn);
+
+      }
+      
+      col2.appendChild(viewDetailBtn);
+      
+
+      // Append everything
+      row.appendChild(col1);
+      row.appendChild(col2);
+      cardBody.appendChild(row);
+      card.appendChild(cardHeader);
+      card.appendChild(cardBody);
+
+      // Append the card to the ordersList
+      ordersList.appendChild(card);
+       
+      });
+  });
+
+   
+
+</script>

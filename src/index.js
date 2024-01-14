@@ -1,6 +1,8 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const {mongoosesToObject}=require('./util/mongoose');
+const {mutipleMongooseToObject}=require('./util/mongoose');
 const { engine } = require("express-handlebars");
 const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
@@ -9,12 +11,11 @@ const session = require("express-session");
 const MongoStore=require('connect-mongo');
 const app = express();
 const port = 3000;
+const https=require('https');
 const mongoose=require("mongoose");
-
-
-
+const fs = require('fs');
 const Admin = require("./app/models/Admin");
-
+const Order=require("./app/models/Order")
 const route = require("./routes");
 const db = require("./config/db");
 
@@ -128,6 +129,171 @@ app.set("views", path.join(__dirname, "resource", "views"));
 
 route(app);
 
-app.listen(port, () =>
-  console.log(`App listening at http:://localhost:${port}`)
+app.get('/cart/order/wait', (req,res,next)=>{
+    res.render('cart/wait',{order:req.session.yourOrder});
+})
+
+app.get('/cart/order/pay', (req,res,next)=>{
+  Order.findById(req.query.orderId)
+    .then (order => res.render('cart/makePayment',{
+      order: mongoosesToObject(order)
+  }))
+  .catch(next);
+})
+
+app.get('/cart/order/done', (req,res,next)=>{
+  Order.findById(req.query.orderId)
+    .then (order => res.render('cart/successOrder',{
+      order: mongoosesToObject(order)
+  }))
+  .catch(next);
+})
+
+const server=https.createServer({
+  key: fs.readFileSync('./src/_certs/demo.key'),
+  cert: fs.readFileSync('./src/_certs/demo.cert')
+},app);
+
+server.listen(port, () =>
+  console.log(`App listening at https:://localhost:${port}`)
 );
+
+const socketIo = require('socket.io');
+const io = socketIo(server);
+
+io.on("connection", function(socket){
+   const orderStatus=socket.handshake.query.status;
+   console.log(orderStatus);
+
+   if (orderStatus=="waiting"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+   }
+   else if (orderStatus=="paying"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+    } else if (orderStatus=="preparing"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+   }
+   else if (orderStatus=="done"){
+    (async () => {
+      try {
+      const waitingOrders = await getOrder(orderStatus);
+      io.emit("updateOrders",waitingOrders);
+       } catch (error) {
+      console.error(error);
+    }
+    })();
+   }
+
+   socket.on('client-payed',(data)=>{
+     io.emit('alert-new-payment',data);
+    })
+
+    socket.on('confirm-paying', (data)=>{
+      console.log(data);
+
+      Order.findById(data)
+          .then (order => {
+                order.status="preparing";
+                return order.save();
+          })
+          .then (updatedOrder => {
+            (async () => {
+              try {
+              const waitingOrders = await getOrder(orderStatus);
+              io.emit("updateOrders",waitingOrders);
+               } catch (error) {
+              console.error(error);
+            }
+            })();
+
+            io.emit("to-preparing",data);
+            
+          })
+          .catch();
+    } 
+  )
+
+  socket.on('confirm-preparing', (data)=>{
+    console.log(data);
+
+    Order.findById(data)
+        .then (order => {
+              order.status="done";
+              return order.save();
+        })
+        .then (updatedOrder => {
+          (async () => {
+            try {
+            const waitingOrders = await getOrder(orderStatus);
+            io.emit("updateOrders",waitingOrders);
+             } catch (error) {
+            console.error(error);
+          }
+          })();        
+        })
+        .catch();
+  } 
+)
+
+   socket.on('confirm-waiting', (data)=>{
+      console.log(data);
+
+      Order.findById(data)
+          .then (order => {
+                order.status="paying";
+                return order.save();
+          })
+          .then (updatedOrder => {
+            (async () => {
+              try {
+              const waitingOrders = await getOrder(orderStatus);
+              io.emit("updateOrders",waitingOrders);
+               } catch (error) {
+              console.error(error);
+            }
+            })();
+
+            io.emit("to-paying",data);
+            
+          })
+          .catch();
+    } 
+  )
+
+  socket.on('new-order', (data)=>{
+      io.emit('alert-new-order',data);
+       } 
+  )
+   
+})
+
+
+
+async function getOrder(status) {
+  try {
+    return await Order.find({ status: status }).exec();
+  } catch (error) {
+    throw error;
+  }
+}

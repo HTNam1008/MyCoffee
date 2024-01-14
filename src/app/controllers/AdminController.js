@@ -1,10 +1,24 @@
 const Employee=require("../models/Employee");
 const Product=require("../models/Product");
 const Order=require("../models/Order");
+const moment = require('moment');
+
 const {mutipleMongooseToObject}=require('../../util/mongoose');
 const { format } = require("morgan");
+const Handlebars = require('handlebars');
 
 
+
+
+function formatDate(dateString) {
+    if (!dateString) return "";
+    return moment(dateString).utcOffset(7).format('DD/MM/YYYY HH:mm:ss');
+}
+
+Handlebars.registerHelper('formatDate', function (dateString) {
+    if (!dateString) return "";
+    return moment(dateString).utcOffset(7).format('DD/MM/YYYY HH:mm:ss');
+});
 
 class AdminController{
     indexEmployees(req,res,next){
@@ -38,43 +52,58 @@ class AdminController{
         .catch(next); 
 
     }
-    orderHistory(req,res,next){
-        const user=req.session.user;
+
+    orderHistory(req, res, next) {
+        const user = req.session.user;
         Order.find({})
-        .then(orders=>{ 
-            res.render('admin/orderHistory',{
-                orders:mutipleMongooseToObject(orders)});
-        })
-        .catch(next); 
-
+            .populate('itemList')
+            .then(async orders => {
+                // Gửi danh sách sản phẩm và hàm asyncGetProductName đến template
+                res.render('admin/orderHistory', {
+                    orders: mutipleMongooseToObject(orders),
+                    formatDate: formatDate,
+                });
+            })
+            .catch(next);
     }
-    getDate(req, res, next) {
-            const myDate = new Date(req.body.date);
-            console.log(myDate)
-            // let formattedDate = selectedDate.toISOString();
-            const year = myDate.getFullYear();
-            const month = String(myDate.getMonth() + 1).padStart(2, '0');
-            const day = String(myDate.getDate()).padStart(2, '0');
-            const hours = String(myDate.getHours()).padStart(2, '0');
-            const minutes = String(myDate.getMinutes()).padStart(2, '0');
-            const seconds = String(myDate.getSeconds()).padStart(2, '0');
-
-            // Lấy thông tin về múi giờ (offset)
-            const offset = myDate.getTimezoneOffset();
-            const offsetHours = Math.floor(Math.abs(offset) / 60);
-            const offsetMinutes = Math.abs(offset) % 60;
-            const offsetSign = offset >= 0 ? '-' : '+';
-
-            // Tạo chuỗi theo định dạng mong muốn
-            const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
-
-        
-            console.log(formattedDate);
-
+    // orderHistory(req, res, next) {
+    //     const user = req.session.user;
+    //     console.log(Order.itemList);
+    //     Order.find({})
+    //         .populate('itemList')  // Sử dụng populate để lấy dữ liệu chi tiết của itemList
+    //         .exec()
+    //         .then(async orders => {
+    //             // Giải quyết tất cả các Promise và lấy ra danh sách sản phẩm
+    //             const resolvedOrders = await Promise.all(orders.map(async order => {
+    //                 const resolvedItemList = await Promise.all(order.itemList.map(async item => {
+    //                     const productName = await asyncGetProductName(item);
+    //                     return productName;
+    //                 }));
+    //                 order.itemList = resolvedItemList;
+    //                 return order;
+    //             }));
     
-            Order.find({ date: formattedDate })
+    //             // Gửi danh sách sản phẩm đã giải quyết đến template
+    //             res.render('admin/orderHistory', {
+    //                 orders: mutipleMongooseToObject(resolvedOrders),
+    //                 formatDate: formatDate,
+    //             });
+    //         })
+    //         .catch(next);
+    // }
+ 
+    getDate(req, res, next) {
+            const dateParts = (req.body.date).split('/');
+    
+            // Tạo đối tượng ngày giờ với các thành phần vừa phân tách
+            const isoDate = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T00:00:00.000Z`);
+            Order.find({ createdAt: {
+                $gte: new Date(isoDate),
+                $lt: new Date(new Date(isoDate).getTime() + 24 * 60 * 60 * 1000)
+            } })
+            .populate('itemList')
             .then(orders => {
-                console.log(orders)
+                
                 res.render('admin/orderHistory',{
                 orders:mutipleMongooseToObject(orders)})
             })

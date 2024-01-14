@@ -1,0 +1,36 @@
+<h2>Vui lòng thanh toán</h2>
+
+<button id="payBtn"><span>Tôi đã hoàn tất thanh toán</span></button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+<script>
+     const url = window.location.origin;
+     const socket = io(url, { query: `status=paying` });
+     
+     const orderId=`{{order._id}}`;
+     console.log(orderId);
+
+    socket.on("to-preparing",data=>{
+          if (orderId==data){
+              // Assuming you have access to the current window object
+               const currentURL = window.location.href;
+  
+                // Construct the new URL with the orderId parameter
+               const newURL = currentURL.replace("/pay", "/done");
+
+              // Redirect to the new URL
+                  window.location.href = newURL 
+          }
+     })
+
+     $(document).ready(function () {
+
+        // Gắn sự kiện click cho nút payBtn
+        $("#payBtn").on("click", function () {
+           // Gửi sự kiện và dữ liệu thông qua Socket.io khi nút được bấm
+           socket.emit("client-payed", orderId);
+        });
+});
+</script>
