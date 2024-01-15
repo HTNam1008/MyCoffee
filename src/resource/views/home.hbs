@@ -18,17 +18,16 @@
 
     {{else}}
 
-        {{#if employee}}
-          <a href="/employees/homepage">Trang chủ</a>
-          <a href="/employees/feedback">Quản lý góp ý</a>
-          <a href="/employees/showOrders">Danh sách order</a>
-          <a href="#">Order tại quầy</a>
-          <a href="/account/signout">Đăng xuất</a>
-        {{else}}
-            <a href="#">Trang chủ</a>
-            <a href="/feedback">Góp ý cửa hàng</a>
-            <a href="/account/signin">Đăng nhập</a>
-        {{/if}}
+      {{#if employee}}
+        <a href="/employees/homepage">Trang chủ</a>
+        <a href="/employees/feedback">Quản lý góp ý</a>
+        <a href="/employees/showOrders">Danh sách order</a>
+        <a href="/account/signout">Đăng xuất</a>
+      {{else}}
+        <a href="#">Trang chủ</a>
+        <a href="/feedback">Góp ý cửa hàng</a>
+        <a href="/account/signin">Đăng nhập</a>
+      {{/if}}
     {{/if}}
 
   </div>

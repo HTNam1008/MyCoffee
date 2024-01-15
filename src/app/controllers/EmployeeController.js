@@ -1,4 +1,3 @@
-
 const Employee = require("../models/Employee");
 const Product = require("../models/Product");
 const Feedback = require("../models/Feedback");
@@ -13,20 +12,15 @@ class EmployeeController {
     res.render("employees/create");
   }
 
-
-    showOrders(req,res,next){
-        
-        const status=req.query.status;
-        if (status){
-            res.render("employees/orderList",{status:status});
-        }
-        else{
-            res.render("employees/orderList",{status:"waiting"});
-        }  
+  showOrders(req, res, next) {
+    const status = req.query.status;
+    if (status) {
+      res.render("employees/orderList", { status: status });
+    } else {
+      res.render("employees/orderList", { status: "waiting" });
     }
+  }
 
-
-    
   async store(req, res, next) {
     console.log(req.body);
     const formData = req.body;
@@ -38,7 +32,6 @@ class EmployeeController {
         console.log("Error:" + error);
       });
   }
-
 
   edit(req, res, next) {
     Employee.findById(req.params.id)
@@ -63,6 +56,7 @@ class EmployeeController {
       .catch(next);
   }
 
+  // Feedback
   feedback(req, res, next) {
     Feedback.find({})
       .then((feedbacks) => {
