@@ -8,27 +8,26 @@
       onclick="closeNav()"
     >&times;</a>
     {{#if admin}}
+      <a href="/admin/homepage">Trang chủ</a>
+      <a href="#">Lịch sử góp ý</a>
+      <a href="/admin/orderHistory">Quản lý order</a>
+      <a href="#">Quản lý doanh thu</a>
+      <a href="/admin/showEmployees">Quản lý nhân viên</a>
+      <a href="/admin/showProducts">Quản lý sản phẩm</a>
+      <a href="/account/signout">Đăng xuất</a>
 
-    <a href="/admin/homepage">Trang chủ</a>
-    <a href="#">Lịch sử góp ý</a>
-    <a href="">Quản lý order</a>
-    <a href="#">Quản lý doanh thu</a>
-    <a href="/admin/showEmployees">Quản lý nhân viên</a>
-    <a href="/admin/showProducts">Quản lý sản phẩm</a>
-    <a href="/account/signout">Đăng xuất</a>      
     {{else}}
 
-        {{#if employee}}
-          <a href="/employees/homepage">Trang chủ</a>
-          <a href="/employees/feedback">Quản lý góp ý</a>
-          <a href="/employees/showOrders">Danh sách order</a>
-          <a href="#">Order tại quầy</a>
-          <a href="/account/signout">Đăng xuất</a>
-        {{else}}
-            <a href="#">Trang chủ</a>
-            <a href="/feedback">Góp ý cửa hàng</a>
-            <a href="/account/signin">Đăng nhập</a>
-        {{/if}}
+      {{#if employee}}
+        <a href="/employees/homepage">Trang chủ</a>
+        <a href="/employees/feedback">Quản lý góp ý</a>
+        <a href="/employees/showOrders">Danh sách order</a>
+        <a href="/account/signout">Đăng xuất</a>
+      {{else}}
+        <a href="#">Trang chủ</a>
+        <a href="/feedback">Góp ý cửa hàng</a>
+        <a href="/account/signin">Đăng nhập</a>
+      {{/if}}
     {{/if}}
 
   </div>

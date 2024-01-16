@@ -7,13 +7,14 @@ const mongooseDelete = require('mongoose-delete');
 
 const Order=new Schema({
     tableId:{type: Number},
-    itemList:{type:Array},
+    itemList: [{type: mongoose.Schema.Types.ObjectId, ref: 'orderDetail'}],
     discount:{type:Number},
     amount:{type:Number},
     total:{type:Number},
     note:{type:String},
     status:{type:String},
     employee:{type:String,maxLength:255},
+    createdAt:{type:Date},
 },{
     timestamps:true,
 });
