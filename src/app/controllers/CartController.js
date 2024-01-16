@@ -7,7 +7,7 @@ const {mutipleMongooseToObject}=require('../../util/mongoose');
 
 class CartController{
     show(req,res,next){
-        OrderDetail.find({tableId: req.session.tableID})
+        OrderDetail.find({tableId: req.session.tableID, isOrdered: false})
         .then(orders=>{ 
             req.session.orders=orders;
             var totalCost=0;
@@ -25,6 +25,14 @@ class CartController{
         var itemIds=[];
         for (var obj of itemList){
             itemIds.push(obj._id);
+            OrderDetail.findById(obj._id)
+            .then (order => {
+                  order.isOrdered=true;
+                  return order.save();
+            })
+            .then (updatedOrder => {       
+            })
+            .catch();
         }
         const newOrder = new Order({
             tableId: req.session.tableID,

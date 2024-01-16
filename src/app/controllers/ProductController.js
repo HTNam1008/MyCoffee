@@ -106,7 +106,8 @@ class ProductController{
                     extra: formData.topping,
                     amount: productPrice,
                     quantity: formData.quantity,
-                    total : productPrice
+                    total : productPrice,
+                    isOrdered: false,
                   });
                   for (const extra of newOrder.extra)
                   {
