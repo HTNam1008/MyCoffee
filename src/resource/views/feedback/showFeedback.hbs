@@ -45,70 +45,40 @@
           <div class="col-12 mt-3">
             <ul class="feedback-list">
               {{#each feedbacks}}
-                {{#unless this.reply}}
-
-                  <li class="feedback-item p-2 mb-3">
-                    <h5 class="feedback-author">{{this.author}}</h5>
-                    <div class="feedback-content d-flex m-3">
-                      <div class="col-6 d-flex flex-column">
-                        <div class="feedback-content">{{this.feedback}}</div>
-                        <div class="feedback-date mt-4">
-                          <div class="feedback-date mt-4">{{#dateToString
-                              this.createdAt
-                            }}{{/dateToString}}</div></div>
-                      </div>
-                      <div class="col-6">
-                        <img class="feedback-img" src="{{this.image}}" alt="" />
-                      </div>
+                <li class="feedback-item p-2 mb-3">
+                  <h5 class="feedback-author">{{this.author}}</h5>
+                  <div class="feedback-content d-flex m-3">
+                    <div class="col-6 d-flex flex-column">
+                      <div class="feedback-content">{{this.feedback}}</div>
+                      <div class="feedback-date mt-4">
+                        <div class="feedback-date mt-4">{{#dateToString
+                            this.createdAt
+                          }}{{/dateToString}}</div></div>
                     </div>
+                    <div class="col-6">
+                      {{#if this.image}}
+                        <img class="feedback-img" src="{{this.image}}" alt="" />
+                      {{/if}}
+                    </div>
+                  </div>
+                  {{! Reply }}
+                  {{#if this.replyID}}
                     <div class="reply-wrapper m-3 p-1">
-                      <h5 class="feedback-author">{{this.author}}</h5>
+                      <h5 class="feedback-author">{{this.replyID.author}}</h5>
                       <div class="feedback-content row d-flex flex-wrap m-3">
                         <div class="d-flex flex-column">
-                          <div class="feedback-content">{{this.feedback}}</div>
+                          <div
+                            class="feedback-content"
+                          >{{this.replyID.feedback}}</div>
                           <div class="feedback-date mt-4">{{#dateToString
-                              this.createdAt
+                              this.replyID.createdAt
                             }}{{/dateToString}}</div>
                         </div>
                       </div>
                     </div>
-                  </li>
-                {{/unless}}
+                  {{/if}}
+                </li>
               {{/each}}
-              {{! <li class="feedback-item p-2 mb-3">
-                <h5 class="feedback-author">Hồng Phượng</h5>
-                <div class="feedback-content d-flex m-3">
-                  <div class="col-6 d-flex flex-column">
-                    <div class="feedback-content">Quán xinh Nhân viên nhiệt
-                      tình. Đồ uống hơi ngọt so với khẩu vị mình. Quán hơi quá
-                      lạnh. Order chuyên nghiệp</div>
-                    <div class="feedback-date mt-4">05:42
-                      PM&nbsp;&nbsp;&nbsp;15/11/2023</div>
-                    <div
-                      class="feedback-date mt-4"
-                    >n.toLocaleString("en-US")</div>
-
-                  </div>
-                  <div class="col-6">
-                    <img
-                      class="feedback-img"
-                      src="https://picsum.photos/200"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="reply-wrapper m-3 p-1">
-                  <h5 class="feedback-author">Thúy Hường</h5>
-                  <div class="feedback-content row d-flex flex-wrap m-3">
-                    <div class="d-flex flex-column">
-                      <div class="feedback-content">Cảm ơn bạn đã ghé quán mình,
-                        bọn mình sẽ khắc phục vấn đề máy lạnh</div>
-                      <div class="feedback-date mt-4">05:42
-                        PM&nbsp;&nbsp;&nbsp;15/11/2023</div>
-                    </div>
-                  </div>
-                </div>
-              </li> }}
             </ul>
           </div>
         </div>
