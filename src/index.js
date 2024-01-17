@@ -27,6 +27,8 @@ app.use(
   })
 );
 
+app.use(cookieParser());
+
 const createRootAdmin = async () => {
   try {
     // Tạo một salt ngẫu nhiên và hash mật khẩu
@@ -130,7 +132,7 @@ app.set("views", path.join(__dirname, "resource", "views"));
 route(app);
 
 app.get('/cart/order/wait', (req,res,next)=>{
-    res.render('cart/wait',{order:req.session.yourOrder});
+    res.render('cart/wait',{order:req.cookies.yourOrder});
 })
 
 app.get('/cart/order/pay', (req,res,next)=>{
@@ -142,6 +144,7 @@ app.get('/cart/order/pay', (req,res,next)=>{
 })
 
 app.get('/cart/order/done', (req,res,next)=>{
+  res.clearCookie('yourOrder');
   Order.findById(req.query.orderId)
     .then (order => res.render('cart/successOrder',{
       order: mongoosesToObject(order)
