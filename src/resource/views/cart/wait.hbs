@@ -1,0 +1,25 @@
+<h2>Vui lòng chờ nhân viên xác nhận</h2>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+<script>
+     const url = window.location.origin;
+     const socket = io(url, { query: `status=waiting` });
+     socket.emit("new-order","New order");
+
+     const orderId=`{{order._id}}`;
+
+     socket.on("to-paying",data=>{
+          if (orderId==data){
+              // Assuming you have access to the current window object
+               const currentURL = window.location.href;
+  
+                // Construct the new URL with the orderId parameter
+               const newURL = currentURL.replace("/wait", "/pay") + `?orderId=${data}`;
+
+              // Redirect to the new URL
+                  window.location.href = newURL 
+          }
+     })
+</script>
