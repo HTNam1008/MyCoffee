@@ -10,18 +10,16 @@
     {{#if admin}}
       <a href="/admin/homepage">Trang chủ</a>
       <a href="#">Lịch sử góp ý</a>
-      <a href="/admin/orderHistory">Quản lý order</a>
+      <a href="#">Quản lý order</a>
       <a href="#">Quản lý doanh thu</a>
       <a href="/admin/showEmployees">Quản lý nhân viên</a>
       <a href="/admin/showProducts">Quản lý sản phẩm</a>
       <a href="/account/signout">Đăng xuất</a>
-
     {{else}}
-
       {{#if employee}}
         <a href="/employees/homepage">Trang chủ</a>
         <a href="/employees/feedback">Quản lý góp ý</a>
-        <a href="/employees/showOrders">Danh sách order</a>
+        <a href="#">Order tại quầy</a>
         <a href="/account/signout">Đăng xuất</a>
       {{else}}
         <a href="/">Trang chủ</a>
@@ -94,8 +92,7 @@
 
     <div class="col-sm-9 col-lg-9 mt-4">
       <div id="coffee">
-        <h1 class="menu__session-title ml-3">Cà phê</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "coffee"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -120,8 +117,7 @@
       </div>
 
       <div id="juice">
-        <h1 class="menu__session-title ml-3 mt-3">Nước ép</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "juice"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -146,8 +142,7 @@
       </div>
 
       <div id="smoothy">
-        <h1 class="menu__session-title ml-3 mt-3">Sinh tố</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "smoothy"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -172,8 +167,7 @@
       </div>
 
       <div id="iceblended">
-        <h1 class="menu__session-title ml-3 mt-3">Đá xay</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "iceblended"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -198,8 +192,7 @@
       </div>
 
       <div id="tea">
-        <h1 class="menu__session-title ml-3 mt-3">Trà</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "tea"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -224,8 +217,7 @@
       </div>
 
       <div id="milktea">
-        <h1 class="menu__session-title ml-3 mt-3">Trà sữa</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "milktea"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -250,8 +242,7 @@
       </div>
 
       <div id="soda">
-        <h1 class="menu__session-title ml-3 mt-3">Soda</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "soda"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -276,8 +267,7 @@
       </div>
 
       <div id="food">
-        <h1 class="menu__session-title ml-3 mt-3">Đồ ăn</h1>
-        {{#each products}}
+        {{#each search}}
           {{#ifEquals this.type "food"}}
             <div class="menu__item col-sm-2 col-lg-2">
               <div class="card card-course-item">
@@ -315,11 +305,11 @@
     document.getElementById('searchForm').addEventListener('submit', function (event) {
         var searchKeyword = document.getElementById('searchInput').value;
         if (searchKeyword.trim()) {
-            // Append the search keyword to the URL
+            // Thêm keyword vào params
             window.location.href = '/search?params=' + encodeURIComponent(searchKeyword);
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault(); // Xử lý Submit khi không điền gì
         } else {
-            event.preventDefault(); // Prevent form submission if the search keyword is empty
+            event.preventDefault(); //  Xử lý Submit khi không điền gì
         }
     });
 </script>
