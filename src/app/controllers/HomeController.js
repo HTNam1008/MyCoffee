@@ -7,12 +7,15 @@ const Employee=require("../models/Employee")
 class HomeController {
   async index(req, res, next) {
     var tables=await Table.find({});
+    
     var tableList=[];
     for (var obj of tables){
       tableList.push(obj.noOfTable);
     } 
+   
     
     const tableId = req.query.table; // Lấy mã bàn từ param table trong URL
+  
     if (!tableId)
     {
         const user=req.session.user;
