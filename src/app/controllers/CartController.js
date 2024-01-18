@@ -7,6 +7,7 @@ const { mutipleMongooseToObject } = require("../../util/mongoose");
 
 class CartController {
     show(req,res,next){
+        console.log(req.session.user);
         if (!req.cookies.orders){
           res.render('cart/show',{total: 0, discount: 0,employee: req.session.user})
         }
