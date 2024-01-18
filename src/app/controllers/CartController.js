@@ -145,6 +145,8 @@ class CartController {
     });
   }
 
+  
+
   destroy(req, res, next) {
     OrderDetail.delete({ _id: req.params.id })
       .then(() => res.redirect("back"))

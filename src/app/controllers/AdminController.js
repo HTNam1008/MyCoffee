@@ -32,7 +32,7 @@ class AdminController{
 
     }
     indexProducts(req,res,next){
-        const user=req.session.user;
+        const admin=req.session.user;
         Product.find({})
         .then(products=>{ 
             res.render('admin/showProducts',{
