@@ -8,7 +8,7 @@ const Feedback = new Schema(
     phone: { type: String, maxLength: 255 },
     feedback: { type: String, maxLength: 255 },
     image: { type: String, maxLength: 255 },
-    reply: { type: String, maxLength: 255 },
+    replyID: { type: String, maxLength: 255 },
   },
   {
     timestamps: true,

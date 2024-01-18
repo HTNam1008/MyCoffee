@@ -90,6 +90,10 @@ class ProductController{
 
     addToCart(req, res, next){
       const formData = req.body;
+      var currenrOrders=[];
+      if (req.cookies.orders){
+        currenrOrders=req.cookies.orders;
+      }
       Product.findOne({ slug: req.params.slug })
           .then(product => {
               if (product) {
@@ -98,7 +102,7 @@ class ProductController{
                   const newOrder = new OrderDetail({
                     productId:product._id,
                     productName: product.name,
-                    tableId: req.session.tableID,
+                    tableId: req.cookies.tableID,
                     price: productPrice,
                     size: formData.size,
                     icePercent: formData.ice, 
@@ -125,8 +129,26 @@ class ProductController{
                     }
                   }
                   newOrder.total = newOrder.amount*newOrder.quantity;
+                  currenrOrders.push(newOrder._id);
+                  res.cookie('orders',currenrOrders,{maxAge:86400000, httpOnly:true });
                   newOrder.save()
-                      .then(() => res.redirect('/'))
+                      .then(() => {
+                      // Assuming you have access to the session information
+                      if (req.session && req.session.user) {
+                          // Check the user type and redirect accordingly
+                          if (req.session.user.role === 'employee') {
+                              res.redirect('/employees/homepage');
+                          } else if (req.session.user.role=== 'admin') {
+                              res.redirect('/admin/homepage');
+                          } else {
+                              // Handle other user types if needed
+                              res.redirect('/');
+                          }
+                      } else {
+                          // If session is null, redirect to '/'
+                          res.redirect('/');
+                      }
+                      })
                       .catch(error => console.log("Error:" + error));
 
                   

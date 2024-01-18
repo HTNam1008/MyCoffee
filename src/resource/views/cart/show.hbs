@@ -1,8 +1,21 @@
 <div class="mt-4 ml-4">
+  {{#if employee}}
+    <a style="color: rgb(100, 97, 97);" href="/employees/homepage">
+      Trang chủ
+    </a>
+  {{else}}
     <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
     <span>&gt;</span>
-     <a style="color: rgb(100, 97, 97);" href="/cart/show"> Giỏ hàng </a>
-     <a class="shopping-cart mr-4 pl-3" style="float: right; font-size:x-large"><i class="fa-solid fa-cart-shopping" style="width: 50px;"></i></a>
+  {{/if}}
+  <span>&gt;</span>
+  {{! Reply }}
+  {{#if employee}}
+    <a style="color: rgb(100, 97, 97);" href="/employees/cart/show">
+      Giỏ hàng
+    </a>
+  {{else}}
+    <a style="color: rgb(100, 97, 97);" href="/cart/show"> Giỏ hàng </a>
+  {{/if}}
 </div>
 
 <div class="container-fluid mt-4">
@@ -42,7 +55,7 @@
         <tr>
           <td colspan="5" class="text-center">
             Chưa có order.
-            <a href="">Thêm order</a>
+            <a href="/">Thêm order</a>
           </td>
         </tr>
       {{/each}}
@@ -65,12 +78,12 @@
             <input type="number" class="order__infor-detail mb-2 mr-sm-2" name="totalCost" id="discount" value="{{total}}" readonly>
           </div>
           <textarea class="form-control mt-2" rows="5" style="width:280px;" name="note" id="comment" placeholder="Lời nhắn đến nhân viên" ></textarea>
-          <button type="submit" class="btn btn-warning product__order-button mt-4">Xác nhận</button>
-         
+          <button type="submit" class="btn btn-warning product__order-button mt-4" style="background-color: #ffcc81;">Xác nhận</button>   
          </form>
+       </div>
     </div>
   </div>
-</div>
+
 
 <!-- Modal -->
 <div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
@@ -91,7 +104,7 @@
         <p>Bạn chắc chắn muốn xóa món này trong danh sách order?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa
+        <button id="btn-delete-course" type="button" class="btn btn-danger" style="background-color: #ffcc81;">Xóa
           bỏ</button>
         <button
           type="button"
@@ -106,23 +119,14 @@
 <form method="POST" name="delete-form"></form>
 
 <script>
-    document.addEventListener('DOMContentLoaded',function(){ 
-      
-      var orderId; 
-      var deleteForm=document.forms['delete-form'];
-         $('#delete-course-modal').on('show.bs.modal',function(event){ 
-             var button=$(event.relatedTarget); 
-             orderId=button.data('id') 
-       }); 
-       var btnDeleteCourse=document.getElementById("btn-delete-course");
-       btnDeleteCourse.onclick=function(){
-         deleteForm.action='/cart/'+orderId+'?_method=DELETE'; 
-         deleteForm.submit();
-      } 
-    });
-
-    function openNav() { 
-        document.getElementById("mySidenav").style.width ="250px"; } 
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0"; }
+  document.addEventListener('DOMContentLoaded',function(){ var orderId; var
+  deleteForm=document.forms['delete-form'];
+  $('#delete-course-modal').on('show.bs.modal',function(event){ var
+  button=$(event.relatedTarget); orderId=button.data('id') }); var
+  btnDeleteCourse=document.getElementById("btn-delete-course");
+  btnDeleteCourse.onclick=function(){
+  deleteForm.action='/cart/'+orderId+'?_method=DELETE'; deleteForm.submit(); }
+  }); function openNav() { document.getElementById("mySidenav").style.width
+  ="250px"; } function closeNav() {
+  document.getElementById("mySidenav").style.width = "0"; }
 </script>
