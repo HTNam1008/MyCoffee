@@ -9,7 +9,7 @@
     >&times;</a>
     {{#if admin}}
       <a href="/admin/homepage">Trang chủ</a>
-      <a href="#">Lịch sử góp ý</a>
+      <a href="/admin/feedback">Quản lý góp ý</a>
       <a href="/admin/orderHistory">Quản lý order</a>
       <a href="#">Quản lý doanh thu</a>
       <a href="/admin/showEmployees">Quản lý nhân viên</a>
@@ -37,7 +37,7 @@
   </div>
 
   <form class="form-inline ml-5 pl-2" action= "/search" method="get" id="searchForm">
-    <input
+  <input
       class="mr-sm-3 home__search-bar"
       type="text"
       placeholder="Nhập tên sản phẩm"
@@ -310,6 +310,7 @@
 </script>
 
 <script>
+<<<<<<< HEAD
     document.addEventListener('DOMContentLoaded', function () {
         var navItems = document.querySelectorAll('.nav-item');
 
@@ -339,4 +340,13 @@
             event.preventDefault(); // Prevent form submission if the search keyword is empty
         }
     });
+=======
+  document.getElementById('searchForm').addEventListener('submit', function
+  (event) { var searchKeyword = document.getElementById('searchInput').value; if
+  (searchKeyword.trim()) { // Append the search keyword to the URL
+  window.location.href = '/search?params=' + encodeURIComponent(searchKeyword);
+  event.preventDefault(); // Prevent the default form submission } else {
+  event.preventDefault(); // Prevent form submission if the search keyword is
+  empty } });
+>>>>>>> 106d09938a8132e99cf4665c6b258e118aa97832
 </script>

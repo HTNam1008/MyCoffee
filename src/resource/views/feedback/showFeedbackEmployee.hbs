@@ -5,13 +5,22 @@
       <div class="container-fluid">
         <div class="row d-flex justify-content-center">
           <ul class="nav flex-column">
-            <li class="nav-feedback-item">
-              <a class="nav-link active" href="/employees/homepage">Trang chủ</a>
-            </li>
-            <li class="nav-feedback-item">
-              <a class="nav-link active" href="/employees/feedback">Góp ý cửa
-                hàng</a>
-            </li>
+            {{#if admin}}
+              <li class="nav-feedback-item">
+                <a class="nav-link active" href="homepage">Trang chủ</a>
+              </li>
+              <li class="nav-feedback-item">
+                <a class="nav-link active" href="/admin/feedback">Góp ý cửa hàng</a>
+              </li>
+            {{else}}
+              <li class="nav-feedback-item">
+                <a class="nav-link active" href="/employees/homepage">Trang chủ</a>
+              </li>
+              <li class="nav-feedback-item">
+                <a class="nav-link active" href="/employees/feedback">Góp ý cửa
+                  hàng</a>
+              </li>
+            {{/if}}
           </ul>
         </div>
       </div>
@@ -98,34 +107,70 @@
                         class="collapse reply-wrapper m-3 p-1"
                         id="collapseReply{{this._id}}"
                       >
-                        <form method="POST" action="/employees/feedback/">
-                          <div class="form-group">
-                            <label for="replyFormControl">Phản hồi góp ý</label>
-                            <textarea
-                              class="form-control"
-                              id="replyFormControl"
-                              name="feedback"
-                              rows="3"
-                            ></textarea>
-                          </div>
-                          <div class="form-group">
-                            <input
-                              type="hidden"
-                              name="id"
-                              value="{{this._id}}"
-                            />
-                          </div>
-                          <div class="reply-footer d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-secondary mr-1"
-                            >Hủy bỏ</button>
-                            <button
-                              type="submit"
-                              class="btn btn-outline-success"
-                            >Lưu</button>
-                          </div>
-                        </form>
+                        {{#if admin}}
+                          <form method="POST" action="/admin/feedback/">
+                            <div class="form-group">
+                              <label for="replyFormControl">Phản hồi góp ý</label>
+                              <textarea
+                                class="form-control"
+                                id="replyFormControl"
+                                name="feedback"
+                                rows="3"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input
+                                type="hidden"
+                                name="id"
+                                value="{{this._id}}"
+                              />
+                            </div>
+                            <div
+                              class="reply-footer d-flex justify-content-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-secondary mr-1"
+                              >Hủy bỏ</button>
+                              <button
+                                type="submit"
+                                class="btn btn-outline-success"
+                              >Lưu</button>
+                            </div>
+                          </form>
+                        {{else}}
+                          <form method="POST" action="/employees/feedback/">
+                            <div class="form-group">
+                              <label for="replyFormControl">Phản hồi góp ý</label>
+                              <textarea
+                                class="form-control"
+                                id="replyFormControl"
+                                name="feedback"
+                                rows="3"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input
+                                type="hidden"
+                                name="id"
+                                value="{{this._id}}"
+                              />
+                            </div>
+                            <div
+                              class="reply-footer d-flex justify-content-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-secondary mr-1"
+                              >Hủy bỏ</button>
+                              <button
+                                type="submit"
+                                class="btn btn-outline-success"
+                              >Lưu</button>
+                            </div>
+                          </form>
+                        {{/if}}
+
                       </div>
                     {{/if}}
                   </li>
