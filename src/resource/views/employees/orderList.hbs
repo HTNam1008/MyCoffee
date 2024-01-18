@@ -76,7 +76,7 @@
       viewDetailBtn.setAttribute('data-id', order._id);
       viewDetailBtn.addEventListener('click', function(){
           var orderId=this.getAttribute('data-id');
-          window.location.href = '/cart/order/' + orderId;
+          window.location.href = '/cart/order/view' + orderId;
       })
 
       if (order.status!="done"){
