@@ -1,73 +1,130 @@
 <div class="mt-4 ml-4">
+  {{#if employee}}
+    <a style="color: rgb(100, 97, 97);" href="/employees/homepage">
+      Trang chủ
+    </a>
+  {{else}}
     <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
-    <span>&gt;</span>
-     <a style="color: rgb(100, 97, 97);" href="/cart/show"> Giỏ hàng </a>
-     <a class="shopping-cart mr-4 pl-3" style="float: right; font-size:x-large"><i class="fa-solid fa-cart-shopping" style="width: 50px;"></i></a>
+  {{/if}}
+  <span>&gt;</span>
+  {{! Reply }}
+  {{#if employee}}
+    <a style="color: rgb(100, 97, 97);" href="/employees/cart/show">
+      Giỏ hàng
+    </a>
+  {{else}}
+    <a style="color: rgb(100, 97, 97);" href="/cart/show"> Giỏ hàng </a>
+  {{/if}}
+  <a class="shopping-cart mr-4 pl-3" style="float: right; font-size:x-large"><i
+      class="fa-solid fa-cart-shopping"
+      style="width: 50px;"
+    ></i></a>
 </div>
 
 <div class="container-fluid mt-4">
   <div class="row">
     <div class="col-sm-8" style="background-color:rgb(250, 250, 251);">
-        <h3>Sản phẩm đã chọn</h3>
-        <div class="box__orderDetail">
-            <table class="table mt-4 ">
-              <thead>
-                <tr>
-                    <th scope="col">SẢN PHẨM</th>
-                    <th scope="col">ĐƠN GIÁ</th>
-                    <th scope="col">SỐ LƯỢNG</th>
-                    <th scope="col">THÀNH TIÊN</th>
-                    <th scope="col"></th>
-                 </tr>
-              </thead>
-    <tbody>
-      {{#each orders}}
-        <tr>
-          <td scope="row"><strong>{{this.productName}}</strong>
-            <ul>
-                <li>Tỉ lệ đá: {{this.icePercent}}</li>
-                <li>Tỉ lệ đường: {{this.sugarPercent}}</li>
-                <li>Thêm: {{this.extra}}</li>
-            </ul>
-          </td>
-          <td>{{this.amount}}</td>
-          <td>{{this.quantity}}</td>
-          <td>{{this.total}}</td>
-          <td>
-            <a href="/cart/{{this._id}}/edit" class="btn btn-link text-dark">Chỉnh sửa</a>
-            <a href="" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal"class="btn btn-link text-dark">Xóa</a>
-          </td>
-        </tr>
-      {{else}}
-        <tr>
-          <td colspan="5" class="text-center">
-            Chưa có order.
-            <a href="">Thêm order</a>
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-        </div>
+      <h3>Sản phẩm đã chọn</h3>
+      <div class="box__orderDetail">
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th scope="col">SẢN PHẨM</th>
+              <th scope="col">ĐƠN GIÁ</th>
+              <th scope="col">SỐ LƯỢNG</th>
+              <th scope="col">THÀNH TIÊN</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each orders}}
+              <tr>
+                <td scope="row"><strong>{{this.productName}}</strong>
+                  <ul>
+                    <li>Tỉ lệ đá: {{this.icePercent}}</li>
+                    <li>Tỉ lệ đường: {{this.sugarPercent}}</li>
+                    <li>Thêm: {{this.extra}}</li>
+                  </ul>
+                </td>
+                <td>{{this.amount}}</td>
+                <td>{{this.quantity}}</td>
+                <td>{{this.total}}</td>
+                <td>
+                  <a
+                    href="/cart/{{this._id}}/edit"
+                    class="btn btn-link text-dark"
+                  >Chỉnh sửa</a>
+                  <a
+                    href=""
+                    data-toggle="modal"
+                    data-id="{{this._id}}"
+                    data-target="#delete-course-modal"
+                    class="btn btn-link text-dark"
+                  >Xóa</a>
+                </td>
+              </tr>
+            {{else}}
+              <tr>
+                <td colspan="5" class="text-center">
+                  Chưa có order.
+                  <a href="">Thêm order</a>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="col-sm-4 mt-4" style="background-color:rgb(255, 255, 255);">
-         <form method="POST" action="./order" name="order__information">
-          <div class="d-inline-flex">
-            <label for="total" class="mr-sm-2">Tạm tính: </label>
-            <input type="number" class="order__infor-detail mb-2 mr-sm-2" name="total" id="total" value="{{total}}" readonly>
-          </div>
-          <div class="d-inline-flex">
-            <label for="discount" class="mr-sm-2">Giảm giá: </label>
-            <input type="number" class="order__infor-detail mb-2 mr-sm-2" name="discount" id="discount" value="{{discount}}" readonly>
-          </div>
-          <div class="d-inline-flex mt-4">
-            <label for="discount" class="mr-sm-2"><strong>Tổng cộng</strong> </label>
-            <input type="number" class="order__infor-detail mb-2 mr-sm-2" name="totalCost" id="discount" value="{{total}}" readonly>
-          </div>
-          <textarea class="form-control mt-2" rows="5" style="width:280px;" name="note" id="comment" placeholder="Lời nhắn đến nhân viên" ></textarea>
-          <button type="submit" class="btn btn-warning product__order-button mt-4">Xác nhận</button>
-         
-         </form>
+      <form method="POST" action="./order" name="order__information">
+        <div class="d-inline-flex">
+          <label for="total" class="mr-sm-2">Tạm tính: </label>
+          <input
+            type="number"
+            class="order__infor-detail mb-2 mr-sm-2"
+            name="total"
+            id="total"
+            value="{{total}}"
+            readonly
+          />
+        </div>
+        <div class="d-inline-flex">
+          <label for="discount" class="mr-sm-2">Giảm giá: </label>
+          <input
+            type="number"
+            class="order__infor-detail mb-2 mr-sm-2"
+            name="discount"
+            id="discount"
+            value="{{discount}}"
+            readonly
+          />
+        </div>
+        <div class="d-inline-flex mt-4">
+          <label for="discount" class="mr-sm-2"><strong>Tổng cộng</strong>
+          </label>
+          <input
+            type="number"
+            class="order__infor-detail mb-2 mr-sm-2"
+            name="totalCost"
+            id="discount"
+            value="{{total}}"
+            readonly
+          />
+        </div>
+        <textarea
+          class="form-control mt-2"
+          rows="5"
+          style="width:280px;"
+          name="note"
+          id="comment"
+          placeholder="Lời nhắn đến nhân viên"
+        ></textarea>
+        <button
+          type="submit"
+          class="btn btn-warning product__order-button mt-4"
+        >Xác nhận</button>
+
+      </form>
     </div>
   </div>
 </div>
@@ -106,23 +163,14 @@
 <form method="POST" name="delete-form"></form>
 
 <script>
-    document.addEventListener('DOMContentLoaded',function(){ 
-      
-      var orderId; 
-      var deleteForm=document.forms['delete-form'];
-         $('#delete-course-modal').on('show.bs.modal',function(event){ 
-             var button=$(event.relatedTarget); 
-             orderId=button.data('id') 
-       }); 
-       var btnDeleteCourse=document.getElementById("btn-delete-course");
-       btnDeleteCourse.onclick=function(){
-         deleteForm.action='/cart/'+orderId+'?_method=DELETE'; 
-         deleteForm.submit();
-      } 
-    });
-
-    function openNav() { 
-        document.getElementById("mySidenav").style.width ="250px"; } 
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0"; }
+  document.addEventListener('DOMContentLoaded',function(){ var orderId; var
+  deleteForm=document.forms['delete-form'];
+  $('#delete-course-modal').on('show.bs.modal',function(event){ var
+  button=$(event.relatedTarget); orderId=button.data('id') }); var
+  btnDeleteCourse=document.getElementById("btn-delete-course");
+  btnDeleteCourse.onclick=function(){
+  deleteForm.action='/cart/'+orderId+'?_method=DELETE'; deleteForm.submit(); }
+  }); function openNav() { document.getElementById("mySidenav").style.width
+  ="250px"; } function closeNav() {
+  document.getElementById("mySidenav").style.width = "0"; }
 </script>

@@ -6,58 +6,68 @@ const { mongoosesToObject } = require("../../util/mongoose");
 const { mutipleMongooseToObject } = require("../../util/mongoose");
 
 class CartController {
-    show(req,res,next){
-        // OrderDetail.find({tableId: req.cookies.tableID, isOrdered: false})
-        // .then(orders=>{ 
-        //     req.session.orders=orders;
-        //     res.cookie('orders',mutipleMongooseToObject(orders),{maxAge:86400000, httpOnly:true });
-        //     var totalCost=0;
-        //     for (var obj of orders){
-        //         totalCost+=obj.total;
-        //     }
-        //     res.render('cart/show',{orders:mutipleMongooseToObject(orders), total: totalCost, discount: 0})
-        // })
-        // .catch(next); 
+  show(req, res, next) {
+    // OrderDetail.find({tableId: req.cookies.tableID, isOrdered: false})
+    // .then(orders=>{
+    //     req.session.orders=orders;
+    //     res.cookie('orders',mutipleMongooseToObject(orders),{maxAge:86400000, httpOnly:true });
+    //     var totalCost=0;
+    //     for (var obj of orders){
+    //         totalCost+=obj.total;
+    //     }
+    //     res.render('cart/show',{orders:mutipleMongooseToObject(orders), total: totalCost, discount: 0})
+    // })
+    // .catch(next);
 
-        if (!req.cookies.orders){
-          res.render('cart/show',{total: 0, discount: 0})
-        }
-        else{
-          const ordersList = req.cookies.orders;
-          const realOrder=[];
-          var totalCost = 0;
-          var count=0;
-           // Mảng để lưu thông tin về các order từ bảng OrderDetail
-          const orderDetails = [];
-         // Lặp qua mỗi _id trong ordersList
-          for (const orderId of ordersList) {
-             // Tìm order trong bảng OrderDetail với _id tương ứng
-             OrderDetail.findById(orderId)
-              .then((orderDetail) => {
-                count+=1;
-                // Kiểm tra xem orderDetail có tồn tại hay không
-                 if (orderDetail && orderDetail.tableId==req.cookies.tableID) {
-                    realOrder.push(orderId);
-                    orderDetails.push(orderDetail);
-                  // Tính tổng chi phí
-                  totalCost += orderDetail.total;
-                  console.log(orderDetails);                
-               }
-               if (count === ordersList.length) {
-                  // Gửi response khi đã hoàn thành lặp
-                  res.cookie('orders',realOrder,{maxAge:86400000, httpOnly:true });
-                  res.render('cart/show', { orders: mutipleMongooseToObject(orderDetails), total: totalCost, discount: 0 });
-               }
-            })
-            .catch((error) => {
-                console.error('Error finding order in OrderDetail:', error);
-                res.status(500).send('Internal Server Error');
-           });
-           }
-           //res.render('cart/show', { orders: mutipleMongooseToObject(orderDetails), total: totalCost, discount: 0 });
-        }
-
+    if (!req.cookies.orders) {
+      res.render("cart/show", {
+        total: 0,
+        discount: 0,
+        employee: req.session.user,
+      });
+    } else {
+      const ordersList = req.cookies.orders;
+      const realOrder = [];
+      var totalCost = 0;
+      var count = 0;
+      // Mảng để lưu thông tin về các order từ bảng OrderDetail
+      const orderDetails = [];
+      // Lặp qua mỗi _id trong ordersList
+      for (const orderId of ordersList) {
+        // Tìm order trong bảng OrderDetail với _id tương ứng
+        OrderDetail.findById(orderId)
+          .then((orderDetail) => {
+            count += 1;
+            // Kiểm tra xem orderDetail có tồn tại hay không
+            if (orderDetail && orderDetail.tableId == req.cookies.tableID) {
+              realOrder.push(orderId);
+              orderDetails.push(orderDetail);
+              // Tính tổng chi phí
+              totalCost += orderDetail.total;
+              console.log(orderDetails);
+            }
+            if (count === ordersList.length) {
+              // Gửi response khi đã hoàn thành lặp
+              res.cookie("orders", realOrder, {
+                maxAge: 86400000,
+                httpOnly: true,
+              });
+              res.render("cart/show", {
+                orders: mutipleMongooseToObject(orderDetails),
+                total: totalCost,
+                discount: 0,
+                employee: req.session.user,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error finding order in OrderDetail:", error);
+            res.status(500).send("Internal Server Error");
+          });
+      }
+      //res.render('cart/show', { orders: mutipleMongooseToObject(orderDetails), total: totalCost, discount: 0 });
     }
+  }
 
   order(req, res, next) {
     const formData = req.body;
@@ -66,14 +76,12 @@ class CartController {
     for (var obj of itemList) {
       itemIds.push(obj);
       OrderDetail.findById(obj)
-      .then (order => {
-        if (order.tableId==req.cookies.tableID)
-            order.isOrdered=true;
-            return order.save();
-      })
-      .then (updatedOrder => {       
-      })
-      .catch();
+        .then((order) => {
+          if (order.tableId == req.cookies.tableID) order.isOrdered = true;
+          return order.save();
+        })
+        .then((updatedOrder) => {})
+        .catch();
     }
     const newOrder = new Order({
       tableId: req.cookies.tableID,
@@ -98,8 +106,11 @@ class CartController {
       //   })
       .then((order) => {
         req.session.yourOrder = mongoosesToObject(order);
-        res.cookie('yourOrder',mongoosesToObject(order),{maxAge:86400000, httpOnly:true });
-        res.clearCookie('orders');
+        res.cookie("yourOrder", mongoosesToObject(order), {
+          maxAge: 86400000,
+          httpOnly: true,
+        });
+        res.clearCookie("orders");
         res.redirect("/cart/order/wait");
       })
       .catch((error) => console.log("Error:" + error));
@@ -111,6 +122,13 @@ class CartController {
     var itemIds = [];
     for (var obj of itemList) {
       itemIds.push(obj);
+      OrderDetail.findById(obj)
+        .then((order) => {
+          if (order.tableId == req.cookies.tableID) order.isOrdered = true;
+          return order.save();
+        })
+        .then((updatedOrder) => {})
+        .catch();
     }
     const newOrder = new Order({
       tableId: 0,
@@ -120,14 +138,18 @@ class CartController {
       total: formData.totalCost,
       note: formData.note,
       status: "done",
-      employee: req.session.user.username,
+      employee: "",
     });
 
     newOrder
       .save()
       .then((order) => {
         req.session.yourOrder = mongoosesToObject(order);
-        
+        res.cookie("yourOrder", mongoosesToObject(order), {
+          maxAge: 86400000,
+          httpOnly: true,
+        });
+        res.clearCookie("orders");
         res.redirect("/employees/homepage");
       })
       .catch((error) => console.log("Error:" + error));
@@ -141,6 +163,7 @@ class CartController {
             res.render("cart/editOrder", {
               product: mongoosesToObject(product),
               order: mongoosesToObject(order),
+              employee: req.session.user,
             })
           )
           .catch(next);
@@ -182,7 +205,11 @@ class CartController {
             total,
           };
           OrderDetail.updateOne({ _id: req.params.id }, temp)
-            .then(() => res.redirect("/cart/show"))
+            .then(() =>
+              req.session.user
+                ? res.redirect("/employees/cart/show")
+                : res.redirect("/cart/show")
+            )
             .catch(next);
         })
         .catch(next);
@@ -193,12 +220,12 @@ class CartController {
     const currentOrders = req.cookies.orders;
     for (let i = 0; i < currentOrders.length; i++) {
       if (currentOrders[i] === req.params.id) {
-       // Nếu _id trùng khớp, xóa đối tượng khỏi mảng
+        // Nếu _id trùng khớp, xóa đối tượng khỏi mảng
         currentOrders.splice(i, 1);
         break; // Thoát khỏi vòng lặp vì đã tìm thấy và xóa
-     }
+      }
     }
-    res.cookie('orders',currentOrders,{maxAge:86400000, httpOnly:true });
+    res.cookie("orders", currentOrders, { maxAge: 86400000, httpOnly: true });
 
     OrderDetail.delete({ _id: req.params.id })
       .then(() => res.redirect("back"))
