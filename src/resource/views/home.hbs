@@ -48,7 +48,7 @@
     <button
       class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
       type="submit"
-    >Search</button>
+    >Tìm</button>
   </form>
 
   <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c"><i
@@ -310,7 +310,6 @@
 </script>
 
 <script>
-
     document.addEventListener('DOMContentLoaded', function () {
         var navItems = document.querySelectorAll('.nav-item');
 
@@ -340,13 +339,4 @@
             event.preventDefault(); // Prevent form submission if the search keyword is empty
         }
     });
-
-  {{!-- document.getElementById('searchForm').addEventListener('submit', function
-  (event) { var searchKeyword = document.getElementById('searchInput').value; if
-  (searchKeyword.trim()) { // Append the search keyword to the URL
-  window.location.href = '/search?params=' + encodeURIComponent(searchKeyword);
-  event.preventDefault(); // Prevent the default form submission } else {
-  event.preventDefault(); // Prevent form submission if the search keyword is
-  empty } }); --}}
-
 </script>

@@ -18,9 +18,13 @@
   border-radius: 50%;
   padding: 5px;
 }
+body{
+  min-height: 100vh;
+}
 
 .app_container {
   width: 100%;
+  min-height: 100vh;
 }
 
 .header__logo-right {
@@ -268,9 +272,17 @@ li.nav-item {
   width: 200px;
 }
 
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
 .nav-item.active {
   background-color: #C4996C; /* Màu của Bootstrap primary */
   color: #fff; /* Màu chữ trắng */
 }
+
 
 

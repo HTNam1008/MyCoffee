@@ -1,3 +1,10 @@
+<div class="mt-4 ml-4">
+    <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
+    <span>&gt;</span>
+     <a style="color: rgb(100, 97, 97);" href="/products/{{product.slug}}"> {{product.name}} </a>
+</div>
+
+
 <div class="container mt-4">
   <h2>Danh sách Order</h2>  
   <ul class="list-group mt-2 flex-row" id="orderStatusList">  
@@ -71,12 +78,12 @@
       col2.className = 'mt-3';
       const viewDetailBtn = document.createElement('button');
       viewDetailBtn.type = 'button';
-      viewDetailBtn.className = 'btn btn-info mr-2';
+      viewDetailBtn.className = 'btn btn-info ml-2';
       viewDetailBtn.innerText = 'Xem chi tiết';
       viewDetailBtn.setAttribute('data-id', order._id);
       viewDetailBtn.addEventListener('click', function(){
           var orderId=this.getAttribute('data-id');
-          window.location.href = '/cart/order/view' + orderId;
+          window.location.href = '/cart/order/view/' + orderId;
       })
 
       if (order.status!="done"){
