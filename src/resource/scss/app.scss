@@ -173,8 +173,8 @@ ul.nav-pills {
 }
 
 .product__image {
-  height: 500px;
-  width: 500px;
+  height: 600px;
+  width: 600px;
   border-radius: 5px;
 }
 
@@ -266,6 +266,11 @@ li.nav-item {
 
 .order-status{
   width: 200px;
+}
+
+.nav-item.active {
+  background-color: #C4996C; /* Màu của Bootstrap primary */
+  color: #fff; /* Màu chữ trắng */
 }
 
 

@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <h2>Order Detail</h2>
+  
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Order {{orderDetail._id}} </h5>
+    
+      
+      <!-- Table ID -->
+      <p><strong>Table ID:</strong> <span id="tableId">{{orderDetail.tableId}}</span></p>
+      
+      <!-- Item List -->
+      <h6 class="card-subtitle mb-2 text-muted"><strong>Item List</strong></h6>
+      
+      <ul class="list-group" id="itemList">
+        {{#each ordersList}}
+        <!-- Sample item -->
+        <li class="list-group-item">
+          <strong>Item Name:</strong> {{this.productName}}
+          <br>
+          <strong>Quantity:</strong> {{this.quantity}}
+          <br>
+          <strong>Toppings:</strong> {{this.extra}}
+          <br>
+          <strong>Price:</strong>{{this.total}}
+        </li>
+        <!-- Additional items go here -->
+        {{/each}}
+      </ul>
+      
+      <!-- Total Amount -->
+      <p class="mt-3"><strong>Total Price:</strong> <span id="totalAmount">{{orderDetail.total}}</span></p>
+    </div>
+  </div>
+</div>

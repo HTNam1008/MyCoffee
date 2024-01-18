@@ -32,13 +32,10 @@
 
   </div>
   <div>
-    <span
-      style="font-size:30px; cursor:pointer"
-      class="ml-5"
-      onclick="openNav()"
-    >&#9776;</span>
+    <span style="font-size:30px; cursor:pointer" class="ml-5" onclick="openNav()">&#9776;</span>
     <a class="navbar-brand ml-3"><span class="home__nav-title">My Coffee</span></a>
   </div>
+
   <form class="form-inline ml-5 pl-2" action= "/search" method="get" id="searchForm">
     <input
       class="mr-sm-3 home__search-bar"
@@ -53,7 +50,8 @@
       type="submit"
     >Search</button>
   </form>
-  <a class="shopping-cart pr-3" href="cart/show" style="float: right;"><i
+
+  <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c"><i
       class="fa-solid fa-cart-shopping"
     ></i></a>
 </nav>
@@ -312,6 +310,25 @@
 </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var navItems = document.querySelectorAll('.nav-item');
+
+       // Chọn thẻ đầu tiên làm active
+        navItems[1].classList.add('active');
+
+        navItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+            // Xóa class 'active' từ tất cả các thẻ li
+            navItems.forEach(function (navItem) {
+            navItem.classList.remove('active');
+            });
+
+          // Thêm class 'active' cho thẻ li được click
+          this.classList.add('active');
+    });
+  });
+});
+
     document.getElementById('searchForm').addEventListener('submit', function (event) {
         var searchKeyword = document.getElementById('searchInput').value;
         if (searchKeyword.trim()) {

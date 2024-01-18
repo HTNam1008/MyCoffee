@@ -7,18 +7,6 @@ const { mutipleMongooseToObject } = require("../../util/mongoose");
 
 class CartController {
     show(req,res,next){
-        // OrderDetail.find({tableId: req.cookies.tableID, isOrdered: false})
-        // .then(orders=>{ 
-        //     req.session.orders=orders;
-        //     res.cookie('orders',mutipleMongooseToObject(orders),{maxAge:86400000, httpOnly:true });
-        //     var totalCost=0;
-        //     for (var obj of orders){
-        //         totalCost+=obj.total;
-        //     }
-        //     res.render('cart/show',{orders:mutipleMongooseToObject(orders), total: totalCost, discount: 0})
-        // })
-        // .catch(next); 
-
         if (!req.cookies.orders){
           res.render('cart/show',{total: 0, discount: 0})
         }
@@ -54,10 +42,35 @@ class CartController {
                 res.status(500).send('Internal Server Error');
            });
            }
+           if (ordersList.length==0){
+            res.render('cart/show',{total: 0, discount: 0})
+           }
            //res.render('cart/show', { orders: mutipleMongooseToObject(orderDetails), total: totalCost, discount: 0 });
         }
 
     }
+
+  viewOrder(req, res, next){
+    const orderId=req.params.id;
+    const ordersList=[];
+    Order.findById(orderId)
+      .then((order) => {
+        for (const orderId of order.itemList){
+          OrderDetail.findById(orderId)
+          .then((orderDetail) => {
+              ordersList.push(orderDetail);               
+           if (ordersList.length === order.itemList.length) {
+              res.render('cart/viewOrder', {orderDetail:mongoosesToObject(order), ordersList: mutipleMongooseToObject(ordersList)});
+           }
+          })
+          .catch((error) => {
+            console.error('Error finding order in OrderDetail:', error);
+            res.status(500).send('Internal Server Error');
+           });
+          } 
+      })
+      .catch(next);
+  }
 
   order(req, res, next) {
     const formData = req.body;
@@ -200,7 +213,7 @@ class CartController {
     }
     res.cookie('orders',currentOrders,{maxAge:86400000, httpOnly:true });
 
-    OrderDetail.delete({ _id: req.params.id })
+    OrderDetail.deleteOne({ _id: req.params.id })
       .then(() => res.redirect("back"))
       .catch(next);
   }
