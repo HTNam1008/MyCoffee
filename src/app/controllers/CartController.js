@@ -7,7 +7,6 @@ const { mutipleMongooseToObject } = require("../../util/mongoose");
 
 class CartController {
     show(req,res,next){
-        console.log(req.session.user);
         if (!req.cookies.orders){
           res.render('cart/show',{total: 0, discount: 0,employee: req.session.user})
         }
@@ -61,7 +60,7 @@ class CartController {
           .then((orderDetail) => {
               ordersList.push(orderDetail);               
            if (ordersList.length === order.itemList.length) {
-              res.render('cart/viewOrder', {orderDetail:mongoosesToObject(order), ordersList: mutipleMongooseToObject(ordersList)});
+              res.render('cart/viewOrder', {orderTable:mongoosesToObject(order), ordersList: mutipleMongooseToObject(ordersList)});
            }
           })
           .catch((error) => {
@@ -237,6 +236,28 @@ class CartController {
       .then(() => res.redirect("back"))
       .catch(next);
   }
+
+  // viewBill(req, res, next){
+  //   const orderId=req.params.id;
+  //   const ordersList=[];
+  //   Order.findById(orderId)
+  //     .then((order) => {
+  //       for (const orderId of order.itemList){
+  //         OrderDetail.findById(orderId)
+  //         .then((orderDetail) => {
+  //             ordersList.push(orderDetail);               
+  //          if (ordersList.length === order.itemList.length) {
+  //             res.render('cart/successOrder', {orderDetail:mongoosesToObject(order), ordersList: mutipleMongooseToObject(ordersList)});
+  //          }
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error finding order in OrderDetail:', error);
+  //           res.status(500).send('Internal Server Error');
+  //          });
+  //         } 
+  //     })
+  //     .catch(next);
+  //   }
 }
 
 module.exports = new CartController();
