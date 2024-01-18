@@ -220,6 +220,8 @@ class CartController {
     });
   }
 
+  
+
   destroy(req, res, next) {
     const currentOrders = req.cookies.orders;
     for (let i = 0; i < currentOrders.length; i++) {

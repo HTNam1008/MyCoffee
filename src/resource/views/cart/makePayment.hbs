@@ -1,6 +1,78 @@
-<h2>Vui lòng thanh toán</h2>
+<section class="vh-100" style="background-color: rgb(247, 247, 247);">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="d-flex align-items-center mb-3 pb-1 ">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #a45e32; margin:20px;"></i>
+                    <span class="h1 fw-bold mb-0 ml-2" style="color: #a45e32;justify-content: center;">MyCoffee</span>
+                  </div>
 
-<button id="payBtn"><span>Tôi đã hoàn tất thanh toán</span></button>
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #6b2f0a; font-size: 1.5rem; justify-content: center;margin:auto;" >Vui lòng thanh toán bằng 1 trong những phương thức sau:</h5>
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block" >
+              <img class="qr-code" src="https://media-cdn-v2.laodong.vn/storage/newsportal/2021/6/15/920631/4128Nh_2021-06-15_Lu.jpeg" alt="QR Code">
+              <img class="qr-code-momo" src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/paymentoptions-momopay-qr-code-202305?wid=512&hei=512&fmt=png-alpha&.v=1684394172918" alt="QR Code">
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                
+                  
+                <div class="transaction-container">
+                  <div class="transaction-item">
+                      <span class="transaction-label">Ngân hàng:</span> MB BANK
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Số tài khoản:</span> 77725082003
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Chủ tài khoản:</span> HOANG THANH NAM
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Nội dung chuyển khoản:</span> mycoffee
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Số tiền thanh toán:</span> 500,000 VND
+                  </div>
+              </div>
+
+              <div class="transaction-container">
+                  <div class="transaction-item">
+                      <span class="transaction-label">MOMO:</span> 0394789375
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Chủ tài khoản:</span> HOANG THANH NAM
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Nội dung chuyển khoản:</span> mycoffee
+                  </div>
+                  <div class="transaction-item">
+                      <span class="transaction-label">Số tiền thanh toán:</span> 500,000 VND
+                  </div>
+              </div>
+
+              <div class="transaction-container">
+                  <div class="transaction-item">
+                      <span class="transaction-label"> Bạn có thể đến quầy để thanh toán bằng tiền mặt nhé!
+                  </div>
+              </div>
+
+    
+                
+
+              </div>
+            </div>
+          </div>
+        <div class="pt-1 mb-4">
+          <button class="btn btn-dark btn-lg btn-block text-light payBtn" style="background-color: #bf7c53; width: 600px; margin:auto; margin-bottom:30px;" type="submit">Tôi đã hoàn tất thanh toán</button>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
@@ -28,9 +100,41 @@
      $(document).ready(function () {
 
         // Gắn sự kiện click cho nút payBtn
-        $("#payBtn").on("click", function () {
+        $(".payBtn").on("click", function () {
            // Gửi sự kiện và dữ liệu thông qua Socket.io khi nút được bấm
            socket.emit("client-payed", orderId);
         });
 });
 </script>
+
+<style>
+        .transaction-container {
+            width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #bf7c53;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-item {
+            margin-bottom: 10px;
+        }
+
+        .transaction-label {
+            font-weight: bold;
+        }
+        .qr-code {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin-top: 20px; /* Khoảng cách giữa thông tin và hình QR code */
+            margin-left: 80px;
+        }
+        .qr-code-momo {
+            max-width: 60%;
+            height: auto;
+            display: block;
+            margin-top: 20px; /* Khoảng cách giữa thông tin và hình QR code */
+            margin-left: 120px;
+    </style>
