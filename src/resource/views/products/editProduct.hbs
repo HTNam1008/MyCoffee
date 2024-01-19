@@ -8,7 +8,7 @@
 
 <div class="container mt-4">
     <h3>Chỉnh sửa sản phẩm</h3>
-    <form method="POST" action="/products/{{product._id}}" enctype="multipart/form-data">
+    <form method="POST" action="/products/{{product._id}}/update" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">Tên sản phẩm</label>
         <input type="text" class="form-control" id="name"  name="name" value="{{product.name}}">

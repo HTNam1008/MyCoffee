@@ -75,7 +75,7 @@
       </ul>
     </nav>
 
-    <div class="col-sm-9 col-lg-9 mt-4">
+    <div class="col-sm-9 col-lg-9 mt-3">
       <div id="coffee">
         <h1 class="menu__session-title ml-3">Cà phê</h1>
         {{#each products}}
@@ -294,6 +294,7 @@
   document.getElementById("mySidenav").style.width = "0"; }
 </script>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var navItems = document.querySelectorAll('.nav-item');
@@ -310,9 +311,9 @@
 
           // Thêm class 'active' cho thẻ li được click
           this.classList.add('active');
+        });
+      });
     });
-  });
-});
 
     document.getElementById('searchForm').addEventListener('submit', function (event) {
         var searchKeyword = document.getElementById('searchInput').value;

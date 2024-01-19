@@ -35,7 +35,9 @@ class AccountController{
             req.session.user = { id: emp._id, username: emp.username, role: 'employee' };
             return res.redirect('/employees/homepage');
         }
-        return res.redirect('./signin');
+        else{
+            res.render('signin',{msg:"Incorrect username or password!",color:"danger"});
+        }
      }
      catch(error){
         next(error);

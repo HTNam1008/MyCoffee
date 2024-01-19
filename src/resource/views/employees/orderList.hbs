@@ -23,6 +23,39 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 
 <script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+       const status=`{{status}}`
+        var navItems = document.querySelectorAll('.list-group-item');
+
+       // Chọn thẻ  làm active
+       if (status=="waiting"){
+        navItems[0].classList.add('active');
+       }
+       else if (status=="paying"){
+        navItems[1].classList.add('active');
+       }
+       else if (status=="preparing"){
+        navItems[2].classList.add('active');
+       }
+       else if (status=="done"){
+        navItems[3].classList.add('active');
+       }
+        
+
+        navItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+            // Xóa class 'active' từ tất cả các thẻ li
+            navItems.forEach(function (navItem) {
+            navItem.classList.remove('active');
+            });
+
+          // Thêm class 'active' cho thẻ li được click
+          this.classList.add('active');
+        });
+      });
+    });
+
   const url = window.location.origin;
   const socket = io(url, { query: `status={{status}}` });
 

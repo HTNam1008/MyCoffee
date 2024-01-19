@@ -70,12 +70,14 @@ class ProductController{
           image: imagePath, // Cập nhật đường dẫn file ảnh
           slug: productSlug // Cập nhật slug
       };
+
+      console.log(req.params.id);
   
       Product.findByIdAndUpdate(req.params.id, updatedProduct, { new: true })
           .then((product) => {
               if (!product) {
                   // Xử lý trường hợp không tìm thấy sản phẩm
-                  return res.status(404).send('Product not found');
+                  return res.status(404).send('Product not diof');
               }
               
               res.redirect('/admin/showProducts');

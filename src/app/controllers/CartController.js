@@ -28,8 +28,7 @@ class CartController {
                     realOrder.push(orderId);
                     orderDetails.push(orderDetail);
                   // Tính tổng chi phí
-                  totalCost += orderDetail.total;
-                  console.log(orderDetails);                
+                  totalCost += orderDetail.total;              
                }
                if (count === ordersList.length) {
                   // Gửi response khi đã hoàn thành lặp
@@ -86,6 +85,10 @@ class CartController {
         .then((updatedOrder) => {})
         .catch();
     }
+    if (itemIds.length==0){
+      res.render('cart/show',{msg:"Cart is empty!",color:"danger"});
+    }
+
     const newOrder = new Order({
       tableId: req.cookies.tableID,
       itemList: itemIds,
@@ -96,6 +99,8 @@ class CartController {
       status: "waiting",
       employee: "",
     });
+
+    
 
     newOrder
       .save()
@@ -183,10 +188,17 @@ class CartController {
           var size = formData.size;
           var icePercent = formData.ice;
           var sugarPercent = formData.sugar;
-          const extra = formData.topping;
+          var extra;
+          if (Array.isArray(formData.topping)){
+            extra = formData.topping;
+          }
+          else{
+            extra=[formData.topping];
+          }
           var amount = productPrice;
           var quantity = formData.quantity;
           for (const i of extra) {
+           
             if (i == "tranchau") {
               amount += 8000;
             }
@@ -197,6 +209,7 @@ class CartController {
               amount += 5000;
             }
           }
+          console.log(amount);
           var total = amount * quantity;
           const temp = {
             size,
