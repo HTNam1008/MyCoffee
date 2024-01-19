@@ -38,7 +38,7 @@ class AdminController {
       .then((products) => {
         res.render("admin/showProducts", {
           products: mutipleMongooseToObject(products),
-          admin: admin,
+          admin: user,
         });
       })
       .catch(next);
@@ -54,45 +54,6 @@ class AdminController {
       })
       .catch(next);
   }
-
-  orderHistory(req, res, next) {
-    const user = req.session.user;
-    Order.find({})
-      .populate("itemList")
-      .then(async (orders) => {
-        // Gửi danh sách sản phẩm và hàm asyncGetProductName đến template
-        res.render("admin/orderHistory", {
-          orders: mutipleMongooseToObject(orders),
-          formatDate: formatDate,
-        });
-      })
-      .catch(next);
-  }
-  // orderHistory(req, res, next) {
-  //     const user = req.session.user;
-  //     console.log(Order.itemList);
-  //     Order.find({})
-  //         .populate('itemList')  // Sử dụng populate để lấy dữ liệu chi tiết của itemList
-  //         .exec()
-  //         .then(async orders => {
-  //             // Giải quyết tất cả các Promise và lấy ra danh sách sản phẩm
-  //             const resolvedOrders = await Promise.all(orders.map(async order => {
-  //                 const resolvedItemList = await Promise.all(order.itemList.map(async item => {
-  //                     const productName = await asyncGetProductName(item);
-  //                     return productName;
-  //                 }));
-  //                 order.itemList = resolvedItemList;
-  //                 return order;
-  //             }));
-
-  //             // Gửi danh sách sản phẩm đã giải quyết đến template
-  //             res.render('admin/orderHistory', {
-  //                 orders: mutipleMongooseToObject(resolvedOrders),
-  //                 formatDate: formatDate,
-  //             });
-  //         })
-  //         .catch(next);
-  // }
 
   getDate(req, res, next) {
     const dateParts = req.body.date.split("/");
@@ -115,6 +76,121 @@ class AdminController {
       })
       .catch(next);
   }
+
+    orderHistory(req, res, next) {
+        const user = req.session.user;
+        Order.find({})
+            .populate('itemList')
+            .then(async orders => {
+                // Gửi danh sách sản phẩm và hàm asyncGetProductName đến template
+                res.render('admin/orderHistory', {
+                    orders: mutipleMongooseToObject(orders),
+                    formatDate: formatDate,
+                });
+            })
+            .catch(next);
+    }
+
+    reportRevenue(req,res, next) {
+        const user = req.session.user;
+        const labels=['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6'];
+        const data=[10, 20, 30, 40, 50, 60];
+        //const revenueDataString = JSON.stringify(data);
+        
+// Render template với dữ liệu doanh thu và các dữ liệu khác cần thiết
+        res.render('admin/reportRevenue', {
+            formatDate: formatDate,
+            labels:labels,
+            data: JSON.stringify(data)
+        });
+    }
+
+
+    getDate(req, res, next) {
+            const dateParts = (req.body.date).split('/');
+    
+            // Tạo đối tượng ngày giờ với các thành phần vừa phân tách
+            const isoDate = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T00:00:00.000Z`);
+            Order.find({ createdAt: {
+                $gte: new Date(isoDate),
+                $lt: new Date(new Date(isoDate).getTime() + 24 * 60 * 60 * 1000)
+            } })
+            .populate('itemList')
+            .then(orders => {
+                
+                res.render('admin/orderHistory',{
+                orders:mutipleMongooseToObject(orders)})
+            })
+            .catch(next);
+        }
+    
+    getRevenueDate(req, res, next) {
+        const start = (req.body.startDate).split('-');
+        const end=(req.body.endDate).split('-');
+
+        // Tạo đối tượng ngày giờ với các thành phần vừa phân tách
+        const isoDateStart = new Date(`${start[0]}-${start[1]}-${start[2]}T00:00:00.000Z`);
+        const isoDateEnd = new Date(`${end[0]}-${end[1]}-${end[2]}T00:00:00.000Z`);
+        const labels = [];
+        let currentDate = new Date(isoDateStart);
+
+        while (currentDate <= isoDateEnd) {
+            const year = currentDate.getFullYear();
+            const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = currentDate.getDate().toString().padStart(2, '0');
+            labels.push(`${year}/${month}/${day}`);
+
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        Order.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: isoDateStart,
+                        $lt: new Date(new Date(isoDateEnd).getTime() + 24 * 60 * 60 * 1000)
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        year: { $year: "$createdAt" },
+                        month: { $month: "$createdAt" },
+                        day: { $dayOfMonth: "$createdAt" }
+                    },
+                    totalAmount: { $sum: "$total" }
+                }
+            },
+            {
+                $sort: {
+                    "_id.year": 1,
+                    "_id.month": 1,
+                    "_id.day": 1
+                }
+            },
+        ])
+        .then(data => {
+            console.log(data);
+            console.log(labels)
+            const totalAmountsMap = {};
+            data.forEach(item => {
+                const year = item._id.year;
+                const month = item._id.month.toString().padStart(2, '0');
+                const day = item._id.day.toString().padStart(2, '0');
+                const formattedDate = `${year}/${month}/${day}`;
+                totalAmountsMap[formattedDate] = item.totalAmount;
+            });
+            
+            // Lặp qua mảng labels và lấy ra totalAmounts tương ứng
+            const totalAmounts = labels.map(label => totalAmountsMap[label] || 0);
+
+            res.render('admin/reportRevenue', {
+                data: JSON.stringify(totalAmounts),
+                labels: labels
+            });
+        })
+        .catch(next);
+    }
 
   // Feedback
   feedback(req, res, next) {
@@ -149,5 +225,5 @@ class AdminController {
       .catch((error) => console.log("Error:" + error));
   }
 }
-
 module.exports = new AdminController();
+

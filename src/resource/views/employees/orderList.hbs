@@ -1,7 +1,11 @@
+<div class="mt-4 ml-4">
+    <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
+    <span>&gt;</span>
+     <a style="color: rgb(100, 97, 97);" href="/products/{{product.slug}}"> {{product.name}} </a>
+</div>
+
+
 <div class="container mt-4">
-  <div class="mt-4 ml-4">
-    <a style="color: rgb(100, 97, 97);margin:auto;" href="/employees/homepage"> Trở về trang chủ </a>
-  </div>
   <h2>Danh sách Order</h2>  
   <ul class="list-group mt-2 flex-row" id="orderStatusList">  
    <li class="list-group-item order-status"><a class="text-dark ml-4 " href="/employees/showOrders?status=waiting">Chờ xác nhận</a></li>
@@ -74,7 +78,7 @@
       col2.className = 'mt-3';
       const viewDetailBtn = document.createElement('button');
       viewDetailBtn.type = 'button';
-      viewDetailBtn.className = 'btn btn-info mr-2';
+      viewDetailBtn.className = 'btn btn-info ml-2';
       viewDetailBtn.innerText = 'Xem chi tiết';
       viewDetailBtn.setAttribute('data-id', order._id);
       viewDetailBtn.addEventListener('click', function(){
