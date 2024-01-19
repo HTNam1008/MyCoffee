@@ -36,24 +36,28 @@
     <a class="navbar-brand ml-3"><span class="home__nav-title">My Coffee</span></a>
   </div>
 
-  <form class="form-inline ml-5 pl-2" action= "/search" method="get" id="searchForm">
-  <input
-      class="mr-sm-3 home__search-bar"
-      type="text"
-      placeholder="Nhập tên sản phẩm"
-      aria-label="Tìm kiếm"
-      id="searchInput"
-    />
+  <div class="div-cart">
 
-    <button
-      class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
-      type="submit"
-    >Tìm</button>
-  </form>
+    <form class="form-inline ml-5 pl-2" action= "/search" method="get" id="searchForm">
+    <input
+        class="mr-sm-3 home__search-bar"
+        type="text"
+        placeholder="Nhập tên sản phẩm"
+        aria-label="Tìm kiếm"
+        id="searchInput"
+      />
 
-  <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c"><i
-      class="fa-solid fa-cart-shopping"
-    ></i></a>
+      <button
+        class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
+        type="submit"
+      >Tìm</button>
+    </form>
+
+      <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c"><i
+          class="fa-solid fa-cart-shopping"
+        ></i></a>
+  </div>
+
 </nav>
 
 <div class="container-fluid">
@@ -301,6 +305,59 @@
     </div>
   </div>
 </div>
+<style>
+  @media screen and (max-width: 768px) {
+  .sidenav {
+    width: 100%;
+  }
+  .sidenav a {
+    padding: 8px;
+    font-size: 16px;
+  }
+  .row {
+    flex-wrap: nowrap;
+  }
+  .navbar {
+    flex-direction: column;
+  }
+  .home__search-bar {
+    width: 100%;
+  }
+  .form-inline .home__search-btn {
+
+  }
+  .ml-5, .mx-5 {
+    margin-left: 0rem!important;
+  }
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0.5rem !important;
+} 
+  .col-sm-3 {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  .form-inline {
+    width: 100%;
+    flex-flow: nowrap;
+  }
+  .mr-5 {
+    margin-right: 0rem !important;
+  }
+  .btn {
+    padding: 4px 10px !important;
+    margin-left: 4px
+  }
+  .div-cart {
+    display: flex;
+    width: 100%;
+  }
+   .shopping-cart{
+    padding: 5px 5px 5px 5px !important;
+    margin-left: 5px;
+ }
+}
+</style>
 
 <script>
 
