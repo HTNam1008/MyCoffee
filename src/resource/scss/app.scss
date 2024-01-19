@@ -268,17 +268,29 @@ li.nav-item {
   width: 200px;
 }
 
-<<<<<<< HEAD
-.d-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-}
-=======
 .nav-item.active {
   background-color: #C4996C; /* Màu của Bootstrap primary */
   color: #fff; /* Màu chữ trắng */
 }
 
+.product_detail{
+  .d-inline-flex{}
+}
 
->>>>>>> f4d4aebdf412b8bf503721f9a81dcd20e045e071
+@media only screen and (max-width: 450px ) {
+  .product_detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+  .product__image{
+    width: 430px;
+    margin-bottom: 15px; /* Add margin between image and form on smaller screens */
+    margin: 0 auto;
+  }
+  .text-center {
+    text-align: center;
+  }
+}
+
