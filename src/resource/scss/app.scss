@@ -194,7 +194,6 @@ ul.nav-pills {
 }
 
 .feedback {
-  height: 100vh;
   &-side-bar {
     // background-color: #e3ceaa;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -316,13 +315,21 @@ li.nav-item {
     text-align: left;
   }
   .product__image{
-    width: 430px;
+    width: 100% !important;
     margin-bottom: 15px; /* Add margin between image and form on smaller screens */
     margin: 0 auto;
   }
   .text-center {
     text-align: center;
   }
-  
+  .product__order-button{
+    width: 100% !important;
+  }
+  .app_container .container {
+    width: 100%;
+  }
+  .ml-5 {
+    margin-left: 0rem !important;
+  }
 }
 
