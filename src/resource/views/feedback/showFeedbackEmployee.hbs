@@ -1,40 +1,37 @@
 <div class="container-fluid">
   <div class="row feedback">
-    <div class="feedback-side-bar col-3 p-0">
-
-      <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-          <ul class="nav flex-column">
-            <li class="nav-feedback-item">
-              <a class="nav-link active" href="/employees/homepage">Trang chủ</a>
-            </li>
-            <li class="nav-feedback-item">
-              <a class="nav-link active" href="/employees/feedback">Góp ý cửa
-                hàng</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="feedback-section col-9 p-0">
+    <div class="feedback-section col-12 p-0">
       <div class="feedback-wrapper m-3 p-3">
-        <h2 class="feedback-title ml-1">Góp ý cửa hàng</h2>
-        <div class="feedback-wrapper-list d-flex flex-column align-items-end">
-          <div class="col-12 mt-3">
-            <ul class="feedback-list">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="homepage">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Góp ý cửa
+              hàng</li>
+          </ol>
+        </nav>
+        <h2 class="feedback-title text-center">Góp ý cửa hàng</h2>
+        <div
+          class="feedback-wrapper-list d-flex flex-column align-items-center justify-content-center"
+        >
+          <div class="col-12 col-lg-9 mt-3">
+            <ul class="feedback-list pl-0">
               {{#each feedbacks}}
                 {{#unless this.reply}}
                   <li class="feedback-item p-2 mb-3">
                     <h5 class="feedback-author">{{this.author}}</h5>
-                    <div class="feedback-content d-flex m-3">
-                      <div class="col-6 d-flex flex-column">
+                    <div
+                      class="feedback-item-content d-flex flex-column flex-lg-row align-items-start align-items-lg-center m-3"
+                    >
+                      <div
+                        class="col-12 col-lg-6 d-flex flex-column align-items-start mb-3 mb-lg-0"
+                      >
                         <div class="feedback-content">{{this.feedback}}</div>
                         <div class="feedback-date mt-4">
                           <div class="feedback-date mt-4">{{#dateToString
                               this.createdAt
                             }}{{/dateToString}}</div></div>
                       </div>
-                      <div class="col-4">
+                      <div class="col-12 col-lg-4 mb-3 mb-lg-0">
                         {{#if this.image}}
                           <img
                             class="feedback-img"
@@ -43,7 +40,9 @@
                           />
                         {{/if}}
                       </div>
-                      <div class="col-2">
+                      <div
+                        class="col-6 col-sm-4 col-lg-2 align-self-center align-self-sm-end align-self-lg-end"
+                      >
                         <button
                           class="btn w-100 btn-hide-feedback font-weight-bold mr-3 mb-2"
                           data-id="{{this._id}}"
@@ -82,7 +81,9 @@
                     {{#if this.replyID}}
                       <div class="reply-wrapper m-3 p-1">
                         <h5 class="feedback-author">{{this.replyID.author}}</h5>
-                        <div class="feedback-content row d-flex flex-wrap m-3">
+                        <div
+                          class="feedback-content row d-flex flex-wrap justify-content-start m-3"
+                        >
                           <div class="d-flex flex-column">
                             <div
                               class="feedback-content"
@@ -98,34 +99,70 @@
                         class="collapse reply-wrapper m-3 p-1"
                         id="collapseReply{{this._id}}"
                       >
-                        <form method="POST" action="/employees/feedback/">
-                          <div class="form-group">
-                            <label for="replyFormControl">Phản hồi góp ý</label>
-                            <textarea
-                              class="form-control"
-                              id="replyFormControl"
-                              name="feedback"
-                              rows="3"
-                            ></textarea>
-                          </div>
-                          <div class="form-group">
-                            <input
-                              type="hidden"
-                              name="id"
-                              value="{{this._id}}"
-                            />
-                          </div>
-                          <div class="reply-footer d-flex justify-content-end">
-                            <button
-                              type="button"
-                              class="btn btn-secondary mr-1"
-                            >Hủy bỏ</button>
-                            <button
-                              type="submit"
-                              class="btn btn-outline-success"
-                            >Lưu</button>
-                          </div>
-                        </form>
+                        {{#if admin}}
+                          <form method="POST" action="/admin/feedback/">
+                            <div class="form-group">
+                              <label for="replyFormControl">Phản hồi góp ý</label>
+                              <textarea
+                                class="form-control"
+                                id="replyFormControl"
+                                name="feedback"
+                                rows="3"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input
+                                type="hidden"
+                                name="id"
+                                value="{{this._id}}"
+                              />
+                            </div>
+                            <div
+                              class="reply-footer d-flex justify-content-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-secondary mr-1"
+                              >Hủy bỏ</button>
+                              <button
+                                type="submit"
+                                class="btn btn-outline-success"
+                              >Lưu</button>
+                            </div>
+                          </form>
+                        {{else}}
+                          <form method="POST" action="/employees/feedback/">
+                            <div class="form-group">
+                              <label for="replyFormControl">Phản hồi góp ý</label>
+                              <textarea
+                                class="form-control"
+                                id="replyFormControl"
+                                name="feedback"
+                                rows="3"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input
+                                type="hidden"
+                                name="id"
+                                value="{{this._id}}"
+                              />
+                            </div>
+                            <div
+                              class="reply-footer d-flex justify-content-end"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-secondary mr-1"
+                              >Hủy bỏ</button>
+                              <button
+                                type="submit"
+                                class="btn btn-outline-success"
+                              >Lưu</button>
+                            </div>
+                          </form>
+                        {{/if}}
+
                       </div>
                     {{/if}}
                   </li>
@@ -141,7 +178,7 @@
 
 <!-- Modal Confirm -->
 <div
-  class="modal fade"
+  class="modal fade col-12"
   id="confirmModal"
   tabindex="-1"
   role="dialog"

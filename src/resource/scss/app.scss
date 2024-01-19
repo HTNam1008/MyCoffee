@@ -18,9 +18,13 @@
   border-radius: 50%;
   padding: 5px;
 }
+body{
+  min-height: 100vh;
+}
 
 .app_container {
   width: 100%;
+  min-height: 100vh;
 }
 
 .header__logo-right {
@@ -173,8 +177,8 @@ ul.nav-pills {
 }
 
 .product__image {
-  height: 500px;
-  width: 500px;
+  height: 600px;
+  width: 600px;
   border-radius: 5px;
 }
 
@@ -267,5 +271,18 @@ li.nav-item {
 .order-status{
   width: 200px;
 }
+
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.nav-item.active {
+  background-color: #C4996C; /* Màu của Bootstrap primary */
+  color: #fff; /* Màu chữ trắng */
+}
+
 
 
