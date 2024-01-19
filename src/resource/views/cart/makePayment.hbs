@@ -1,23 +1,141 @@
-<section class="vh-100" style="background-color: rgb(247, 247, 247);">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-10">
-        <div class="card" style="border-radius: 1rem;">
-          <div class="d-flex align-items-center mb-3 pb-1 ">
-                    <i class="fas fa-cubes fa-2x me-3" style="color: #a45e32; margin:20px;"></i>
-                    <span class="h1 fw-bold mb-0 ml-2" style="color: #a45e32;justify-content: center;">MyCoffee</span>
-                  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add your other meta tags, stylesheets, and scripts here -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
-                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; color: #6b2f0a; font-size: 1.5rem; justify-content: center;margin:auto;" >Vui lòng thanh toán bằng 1 trong những phương thức sau:</h5>
-          <div class="row g-0">
-            <div class="col-md-6 col-lg-5 d-none d-md-block" >
-              <img class="qr-code" src="https://media-cdn-v2.laodong.vn/storage/newsportal/2021/6/15/920631/4128Nh_2021-06-15_Lu.jpeg" alt="QR Code">
-              <img class="qr-code-momo" src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/paymentoptions-momopay-qr-code-202305?wid=512&hei=512&fmt=png-alpha&.v=1684394172918" alt="QR Code">
+        .vh-100 {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(247, 247, 247);
+        }
+
+        .container {
+            padding: 5px;
+            max-width: 100%;
+        }
+
+        .card {
+            border-radius: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-container i {
+            color: #a45e32;
+            margin-right: 10px;
+        }
+
+        .logo-container span {
+            color: #a45e32;
+            font-size: 1.5rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .img-container {
+            overflow: hidden;
+            border-radius: 1rem 0 0 1rem;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .transaction-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #bf7c53;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-item {
+            margin-bottom: 10px;
+        }
+
+        .transaction-label {
+            font-weight: bold;
+        }
+
+        .qr-code{
+            max-width: 60%;
+            height: auto;
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .qr-code-momo {
+            max-width: 40%;
+            height: auto;
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 450px) {
+           .qr-code,
+            .qr-code-momo {
+            max-width: 100%; /* Adjusted max-width for smaller screens */
+              }
+          /* Styles for screens smaller than 768 pixels */
+            .row .img-container {
+                width: 100%;
+                margin-right: 0;
+            }
+
+            .row .transaction-container {
+                width: 100%;
+                margin-top: 20px;
+            }
+
+            .row .qr-code {
+                margin-left: 0;
+            }
+}
+
+        .payBtn {
+            background-color: #bf7c53;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="vh-100">
+        <div class="card">
+            <div class="d-flex align-items-center mb-3 pb-1">
+                <i class="fas fa-cubes fa-2x me-3" style = "color:#a45e32"></i>
+                <span class="h1 fw-bold mb-0 ml-2 "  style = "color:#a45e32">MyCoffee</span>
             </div>
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
-              <div class="card-body p-4 p-lg-5 text-black">
 
-                
+            <h5 class="fw-normal mb-3 pb-3 text-center" style="letter-spacing: 1px; color: #6b2f0a; font-size: 1.5rem;">Vui lòng thanh toán bằng 1 trong những phương thức sau:</h5>
+                <div class=" align-items-center">
+                    <div class="card-body p-4 p-lg-5 text-black">
                   
                 <div class="transaction-container">
                   <div class="transaction-item">
@@ -35,6 +153,9 @@
                   <div class="transaction-item">
                       <span class="transaction-label">Số tiền thanh toán:</span> {{order.total}}
                   </div>
+                  <div class="transaction-item">
+                    <img class="qr-code" src="https://media-cdn-v2.laodong.vn/storage/newsportal/2021/6/15/920631/4128Nh_2021-06-15_Lu.jpeg" alt="QR Code">
+                  </div>
               </div>
 
               <div class="transaction-container">
@@ -50,6 +171,9 @@
                   <div class="transaction-item">
                       <span class="transaction-label">Số tiền thanh toán:</span> {{order.total}}
                   </div>
+                  <div class="transaction-item">
+                    <img class="qr-code-momo" src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/paymentoptions-momopay-qr-code-202305?wid=512&hei=512&fmt=png-alpha&.v=1684394172918" alt="QR Code">
+                  </div>
               </div>
 
               <div class="transaction-container">
@@ -62,15 +186,11 @@
                 
 
               </div>
-            </div>
           </div>
         <div class="pt-1 mb-4">
-          <button class="btn btn-dark btn-lg btn-block text-light payBtn" style="background-color: #bf7c53; width: 600px; margin:auto; margin-bottom:30px;" type="submit">Tôi đã hoàn tất thanh toán</button>
+                <button class="btn btn-dark btn-lg btn-block text-light payBtn" type="submit">Tôi đã hoàn tất thanh toán</button>
+            </div>
         </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 
@@ -107,34 +227,5 @@
 });
 </script>
 
-<style>
-        .transaction-container {
-            width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #bf7c53;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .transaction-item {
-            margin-bottom: 10px;
-        }
-
-        .transaction-label {
-            font-weight: bold;
-        }
-        .qr-code {
-            max-width: 80%;
-            height: auto;
-            display: block;
-            margin-top: 20px; /* Khoảng cách giữa thông tin và hình QR code */
-            margin-left: 80px;
-        }
-        .qr-code-momo {
-            max-width: 60%;
-            height: auto;
-            display: block;
-            margin-top: 20px; /* Khoảng cách giữa thông tin và hình QR code */
-            margin-left: 120px;
-    </style>
+</body>
+</html>
