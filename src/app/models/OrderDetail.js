@@ -17,6 +17,7 @@ const OrderDetail = new Schema({
     amount: {type: Number},
     quantity: {type: Number},
     total: {type: Number},
+    isOrdered: {type:Boolean}
 },{
     timestamps:true,
 });
