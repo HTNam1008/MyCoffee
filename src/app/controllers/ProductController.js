@@ -16,17 +16,7 @@ class ProductController{
     addProduct(req,res,next){
       res.render('products/addProduct')
     }
-    // store(req,res,next){
-    //   console.log(req.body);
-    //   const formData=req.body;
-    //   const newProduct=new Product(formData);
-    //   newProduct
-    //     .save()
-    //     .then(()=>res.redirect('/admin/showProducts'))
-    //     .catch((error)=>{
-    //       console.log("Error:"+error);
-    //     })
-    // }
+  
     store(req, res, next) {
       const formData = req.body;
       const imagePath = '/public/image/uploads/' + req.file.filename;
@@ -47,7 +37,7 @@ class ProductController{
     }
     
     edit(req,res,next){
-
+      //console.log(req.params.id);
       Product.findById(req.params.id)
         .then (product => res.render('products/editProduct',{
           product: mongoosesToObject(product)
@@ -58,10 +48,16 @@ class ProductController{
     //PUT 
     update(req, res, next) {
       const formData = req.body;
-      const imagePath = '/public/image/uploads/' + req.file.filename;
+      if (req.file && req.file.filename){
+          var imagePath = '/public/image/uploads/' + req.file.filename;
+      }
+      else {
+          var imagePath=formData.image;
+      }
+      
       const productName = formData.name;
       const productSlug = slugify(productName, { lower: true });
-  
+      console.log(formData.name);
       // Tạo một đối tượng chứa thông tin cần cập nhật
       const updatedProduct = {
           name: formData.name,
@@ -70,9 +66,6 @@ class ProductController{
           image: imagePath, // Cập nhật đường dẫn file ảnh
           slug: productSlug // Cập nhật slug
       };
-
-      console.log(req.params.id);
-  
       Product.findByIdAndUpdate(req.params.id, updatedProduct, { new: true })
           .then((product) => {
               if (!product) {
@@ -86,8 +79,6 @@ class ProductController{
               console.log('Error:' + error);
               next(error);
           });
-
-          
     }
 
     addToCart(req, res, next){

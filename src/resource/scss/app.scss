@@ -53,8 +53,13 @@ body{
   padding: 0 20px;
 }
 
+.div-cart{
+  width: 75%;
+  justify-content: space-between;
+}
+
 .home__search-bar {
-  width: 1000px;
+  width: 1200px;
   height: 40px;
   border: 1px #c38154 solid;
   border-radius: 7px;
@@ -66,6 +71,7 @@ body{
   border: 1px #c38154 solid;
   color: #c38154;
 }
+
 
 .home__nav-title {
   font-weight: 600;
@@ -87,7 +93,6 @@ body{
 }
 .body__navbar{
     padding: 0 20px;
-    
 }
 
 .home__search-bar{
@@ -194,7 +199,9 @@ ul.nav-pills {
 }
 
 .feedback {
-  height: 100vh;
+
+  height: auto;
+
   &-side-bar {
     // background-color: #e3ceaa;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -315,7 +322,53 @@ li.nav-item {
     display: flex;
     flex-direction: row!important;
     list-style: none;
+  }.product_detail{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
   }
-  
+  .product__image{
+    width: 100% !important;
+    margin-bottom: 15px; /* Add margin between image and form on smaller screens */
+    margin: 0 auto;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .product__order-button{
+    width: 100% !important;
+  }
+  .app_container .container {
+    width: 100%;
+  }
+  .ml-5 {
+    margin-left: 0rem !important;
+  }
+  .form-inline {
+    width: 100% !important;
+    flex-wrap: nowrap;
+  }
+  .btn {
+    padding: 4px 10px !important;
+    margin-left: 12px;
+  }
+  .div-cart {
+    display: flex;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .mr-5 {
+    margin-right: 0rem !important;
+  }
+  .home__search-bar {
+    width: 100%;
+  }
+  .shopping-cart{
+    padding: 5px 5px 5px 5px !important;
+    margin-left: 12px;
+    border: none;
+ }
 }
 

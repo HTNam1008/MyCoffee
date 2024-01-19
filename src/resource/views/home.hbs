@@ -1,4 +1,4 @@
-<nav class="body__navbar mt-3 navbar navbar-light bg-light justify-content-between">
+<nav class="body__navbar mt-3 navbar navbar-light bg-light">
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     {{#if admin}}
@@ -30,18 +30,18 @@
     <a class="navbar-brand ml-3"><span class="home__nav-title">My Coffee</span></a>
   </div>
 
-  <form class="form-inline ml-5 pl-2" action= "/search" method="get" id="searchForm">
-  <input class="mr-sm-3 home__search-bar" type="text" placeholder="Nhập tên sản phẩm" aria-label="Tìm kiếm" id="searchInput"/>
+  <div class="div-cart" style="display: flex;">
+    <form class="form-inline ml-2 pl-2" action= "/search" method="get" id="searchForm">
+      <input class="mr-sm-3 home__search-bar" type="text" placeholder="Nhập tên sản phẩm" aria-label="Tìm kiếm" id="searchInput"/>
+      <button class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
+        type="submit"
+      >Tìm</button>
+    </form>
 
-    <button
-      class="btn btn-outline-success mr-5 my-sm-2 home__seach-btn"
-      type="submit"
-    >Tìm</button>
-  </form>
-
-  <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c"><i
-      class="fa-solid fa-cart-shopping"
-    ></i></a>
+    <a class="shopping-cart pr-3" href="cart/show" style="float: right; color: #c4996c; margin-top: auto; margin-bottom: auto;"><i
+        class="fa-solid fa-cart-shopping"
+      ></i></a>
+    </div>
 </nav>
 
 <div class="container-fluid">
@@ -286,6 +286,8 @@
     </div>
   </div>
 </div>
+
+</style>
 
 <script>
 

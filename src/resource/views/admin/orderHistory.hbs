@@ -104,7 +104,7 @@
         <a class="hv" style="color: rgb(100, 97, 97);" href="/admin/orderHistory"> Lịch sử order </a>
   </div>
 
-  <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 50%;">
+  {{!-- <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 50%;">
       <form  method="POST" action="/admin/getDate" id="form" name="date">
           <div class="form-group marginB20">
             <label style = "margin-top: 15px;">Chọn ngày:</label>
@@ -116,28 +116,32 @@
           </div>
       </form>
 
-          <div class="form-group marginB20">
-            <label style = "margin-top: 15px;">Phương thức thanh toán:</label>
-            <div data-target-input="nearest" >
-              <div class="search-container">
-                <input type="text" class="search-input">
-                  <div class="search-icon" onclick="toggleListview()">&#9660;</div>
-                    <div class="listview">
-                      <div class="list-item" onclick="selectItem(this)">Thanh toán bằng tiền mặt</div>
-                      <div class="list-item" onclick="selectItem(this)">Thanh toán qua momo</div>
-                      <div class="list-item" onclick="selectItem(this)">Thanh toán qua tài khoản ngân hàng</div>
-                        <!-- Thêm các mục khác nếu cần -->
-                    </div>
-              </div>
-            </div>
-          </div>
-
-        
+      
           <button
             class="btnView " type="submit" style = "margin-top: 24px;" form="form"> 
             <i class="fa-solid fa-eye"></i> Xem
           </button>
-  </div>
+  </div> --}}
+  <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 100%;">
+    <form method="POST" action="/admin/getDate" id="form" name="date">
+        <div class="form-group marginB20">
+            <label style="margin-top: 15px;">Chọn khoảng thời gian:</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="startDate">Từ ngày:</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="endDate">Đến ngày:</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" required>
+                </div>
+                <div class="col-md-4" style="margin: auto" >
+                    <button style="background-color: #ffcc81; border:#ffcc81" type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
   <table class="table">
     <thead>
