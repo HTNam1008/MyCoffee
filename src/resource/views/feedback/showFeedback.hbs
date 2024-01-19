@@ -117,11 +117,23 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="author">Họ tên</label>
-            <input type="text" class="form-control" id="author" name="author" />
+            <input
+              type="text"
+              class="form-control"
+              id="author"
+              name="author"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="phone">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone" />
+            <input 
+            type="text" 
+            class="form-control" 
+            id="phone" 
+            name="phone"
+            required
+           />
           </div>
           <div class="form-group">
             <label for="feadback_content">Góp ý với cửa hàng</label>
@@ -130,6 +142,7 @@
               id="feadback_content"
               name="feedback"
               rows="3"
+              required
             ></textarea>
           </div>
           <div class="form-group">
@@ -141,6 +154,7 @@
               name="image"
               accept=".png, .jpg"
               onchange="previewImage(event)"
+              required
             />
             <img
               src=""
