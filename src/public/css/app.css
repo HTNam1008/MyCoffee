@@ -43,8 +43,12 @@ body {
 .body__navbar {
   padding: 0 20px; }
 
+.div-cart {
+  width: 75%;
+  justify-content: space-between; }
+
 .home__search-bar {
-  width: 1000px;
+  width: 1200px;
   height: 40px;
   border: 1px #c38154 solid;
   border-radius: 7px;
@@ -159,7 +163,7 @@ ul.nav-pills {
   color: #f6f6f6; }
 
 .feedback {
-  height: 100vh; }
+  height: auto; }
   .feedback-side-bar {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; }
   .feedback-wrapper {
@@ -231,6 +235,13 @@ li.nav-item {
   color: #fff;
   /* Màu chữ trắng */ }
 
+.list-group-item.active {
+  background-color: #C4996C;
+  /* Màu của Bootstrap primary */
+  color: #fff;
+  /* Màu chữ trắng */
+  border: #e2c799; }
+
 @media (max-width: 450px) {
   .header {
     width: 100%;
@@ -263,4 +274,23 @@ li.nav-item {
   .app_container .container {
     width: 100%; }
   .ml-5 {
-    margin-left: 0rem !important; } }
+    margin-left: 0rem !important; }
+  .form-inline {
+    width: 100% !important;
+    flex-wrap: nowrap; }
+  .btn {
+    padding: 4px 10px !important;
+    margin-left: 12px; }
+  .div-cart {
+    display: flex;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 12px; }
+  .mr-5 {
+    margin-right: 0rem !important; }
+  .home__search-bar {
+    width: 100%; }
+  .shopping-cart {
+    padding: 5px 5px 5px 5px !important;
+    margin-left: 12px;
+    border: none; } }

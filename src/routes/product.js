@@ -9,7 +9,7 @@ const ProductController = require('../app/controllers/ProductController');
 
 route.get('/addProduct',ProductController.addProduct);
 route.get('/:slug',ProductController.show);
-route.post('/:slug', ProductController.addToCart);
+route.post('/:slug/addToCart', ProductController.addToCart);
 route.get('/:id/editProduct',ProductController.edit);
 route.delete('/:id',ProductController.destroy);
 
@@ -31,7 +31,7 @@ const upload = multer({ storage: storage });
 
 // Sử dụng middleware upload.single('image') trong route POST '/store'
 route.post('/store', upload.single('image'), ProductController.store);
-route.post('/:id',upload.single('image'),ProductController.update);
+route.post('/:id/update',upload.single('image'),ProductController.update);
 
 
 module.exports=route;

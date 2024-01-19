@@ -10,21 +10,21 @@
     <div class="product_detail d-inline-flex">
     <img class="product__image mr-5" src="{{product.image}}" alt="{{product.name}}"/>
 
-    <form class="ml-5" action="./{{product.slug}}" method="POST" name="product_order_detail">
+    <form class="ml-5" action="./{{product.slug}}/addToCart" method="POST" name="product_order_detail">
         <h2>{{product.name}}</h2>
         
         <div class="product__order-attribute mt-4">
             <h4 class="product__order-attribute-name">Đơn vị tính</h4>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="size" id="sizeS" value="sizeS">
+               <input class="form-check-input" type="radio" name="size" id="sizeS" value="sizeS"required>
                <label class="form-check-label" for="sizeS">Size S</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="size" id="sizeM" value="sizeM">
+               <input class="form-check-input" type="radio" name="size" id="sizeM" value="sizeM"required>
                <label class="form-check-label" for="sizeM">Size M</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="size" id="sizeL" value="sizeL">
+               <input class="form-check-input" type="radio" name="size" id="sizeL" value="sizeL"required>
                <label class="form-check-label" for="sizeL">Size L</label>
             </div>
             <hr/>
@@ -33,19 +33,19 @@
         <div class="product__order-attribute mt-4">
             <h4 class="product__order-attribute-name">Tỉ lệ đá</h4>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="ice" id="100%" value="100%">
+               <input class="form-check-input" type="radio" name="ice" id="100%" value="100%"required>
                <label class="form-check-label" for="100%">100%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="ice" id="70%" value="70%">
+               <input class="form-check-input" type="radio" name="ice" id="70%" value="70%"required>
                <label class="form-check-label" for="70%">70%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="ice" id="50%" value="50%">
+               <input class="form-check-input" type="radio" name="ice" id="50%" value="50%"required>
                <label class="form-check-label" for="50%">50%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="ice" id="0%" value="0%">
+               <input class="form-check-input" type="radio" name="ice" id="0%" value="0%"required>
                <label class="form-check-label" for="0%">0%</label>
             </div>
             <hr/>
@@ -54,19 +54,19 @@
         <div class="product__order-attribute mt-4">
             <h4 class="product__order-attribute-name">Tỉ lệ đường</h4>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="sugar" id="100%" value="100%">
+               <input class="form-check-input" type="radio" name="sugar" id="100%" value="100%"required>
                <label class="form-check-label" for="100%">100%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="sugar" id="70%" value="70%">
+               <input class="form-check-input" type="radio" name="sugar" id="70%" value="70%"required>
                <label class="form-check-label" for="70%">70%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="sugar" id="50%" value="50%">
+               <input class="form-check-input" type="radio" name="sugar" id="50%" value="50%"required>
                <label class="form-check-label" for="50%">50%</label>
             </div>
             <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" name="sugar" id="0%" value="0%">
+               <input class="form-check-input" type="radio" name="sugar" id="0%" value="0%"required>
                <label class="form-check-label" for="0%">0%</label>
             </div>
             <hr/>

@@ -107,13 +107,15 @@ class AdminController {
 
 
     getDate(req, res, next) {
-            const dateParts = (req.body.date).split('/');
-    
+            // const dateParts = (req.body.date).split('/');
+            const start = (req.body.startDate).split('-');
+            const end=(req.body.endDate).split('-');
             // Tạo đối tượng ngày giờ với các thành phần vừa phân tách
-            const isoDate = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T00:00:00.000Z`);
+            const isoDateStart = new Date(`${start[0]}-${start[1]}-${start[2]}T00:00:00.000Z`);
+            const isoDateEnd = new Date(`${end[0]}-${end[1]}-${end[2]}T00:00:00.000Z`);
             Order.find({ createdAt: {
-                $gte: new Date(isoDate),
-                $lt: new Date(new Date(isoDate).getTime() + 24 * 60 * 60 * 1000)
+                $gte: new Date(isoDateStart),
+                $lt: new Date(new Date(isoDateEnd).getTime() + 24 * 60 * 60 * 1000)
             } })
             .populate('itemList')
             .then(orders => {
