@@ -1,40 +1,44 @@
 @charset "UTF-8";
+.app_container {
+  width: 100%;
+  min-height: 100vh; }
+
+body {
+  min-height: 100vh; }
+
 .header {
   width: 100%;
-  height: 226px;
+  height: 20vh;
   background: #e2c799;
   padding-right: 10px; }
 
 .header__logo-left {
-  width: 239px;
+  width: 15%;
   height: 100%; }
 
+.div__center {
+  height: 60%;
+  width: 20%; }
+
 .header__logo-center {
-  width: 100px;
-  height: 100px;
+  width: 30%;
+  height: 100%;
   mix-blend-mode: darken;
   border: 2px #c38154 solid;
   border-radius: 50%;
   padding: 5px; }
 
-body {
-  min-height: 100vh; }
-
-.app_container {
-  width: 100%;
-  min-height: 100vh; }
-
-.header__logo-right {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%; }
-
 .header__title {
   color: black;
-  font-size: 80px;
+  font-size: 5vh;
   font-family: Oleo Script;
   font-weight: 400;
   word-wrap: break-word; }
+
+.header__logo-right {
+  width: 10%;
+  height: 70%;
+  border-radius: 50%; }
 
 .body__navbar {
   padding: 0 20px; }
@@ -226,3 +230,19 @@ li.nav-item {
   /* Màu của Bootstrap primary */
   color: #fff;
   /* Màu chữ trắng */ }
+
+@media (max-width: 450px) {
+  .header {
+    width: 100%;
+    height: 10vh; }
+  .header__logo-center {
+    width: 60%; }
+  .header__title {
+    font-size: 2vh;
+    word-wrap: break-word; }
+  .card-img-top {
+    height: 120px; }
+  ul.nav-pills {
+    display: flex;
+    flex-direction: row !important;
+    list-style: none; } }
