@@ -105,22 +105,24 @@
         <a class="hv" style="color: rgb(100, 97, 97);" href="/admin/reportRevenue"> Quản lí doanh thu </a>
   </div>
 
-  <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 50%;">
+  <div class="container mt-4 marginB20" style="margin-left: auto; margin-right: auto; width: 100%;">
     <form method="POST" action="/admin/getRevenueDate" id="form" name="date">
         <div class="form-group marginB20">
             <label style="margin-top: 15px;">Chọn khoảng thời gian:</label>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="startDate">Từ ngày:</label>
                     <input type="date" class="form-control" id="startDate" name="startDate" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="endDate">Đến ngày:</label>
                     <input type="date" class="form-control" id="endDate" name="endDate" required>
                 </div>
+                <div class="col-md-4" style="margin: auto" >
+                    <button style="background-color: #ffcc81; border:#ffcc81" type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
     </form>
 </div>
 

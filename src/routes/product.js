@@ -31,7 +31,7 @@ const upload = multer({ storage: storage });
 
 // Sử dụng middleware upload.single('image') trong route POST '/store'
 route.post('/store', upload.single('image'), ProductController.store);
-route.post('/:id',upload.single('image'),ProductController.update);
+route.post('/:id/update',upload.single('image'),ProductController.update);
 
 
 module.exports=route;
