@@ -1,38 +1,9 @@
-<nav
-  class="body__navbar mt-3 navbar navbar-light bg-light justify-content-between"
->
-  <div id="mySidenav" class="sidenav">
-    <a
-      href="javascript:void(0)"
-      class="closebtn"
-      onclick="closeNav()"
-    >&times;</a>
-    {{#if user}}
-    <a href="#">Trang chủ</a>
-    <a href="#">Lịch sử góp ý</a>
-    <a href="#">Quản lý order</a>
-    <a href="#">Quản lý doanh thu</a>
-    <a href="/admin/showEmployees">Quản lý nhân viên</a>
-    <a href="/admin/showProducts">Quản lý sản phẩm</a>
-    <a href="#">Đăng xuất</a>
-    {{else}}
-    <a href="#">Trang chủ</a>
-    <a href="#">Góp ý cửa hàng</a>
-    <a href="/account/signin">Đăng nhập</a>
-    {{/if}}
-  </div>
-  <div>
-    <span
-      style="font-size:30px; cursor:pointer"
-      class="ml-5"
-      onclick="openNav()"
-    >&#9776;</span>
-    <a class="navbar-brand ml-3"><span class="home__nav-title">My Coffee</span></a>
-  </div>
-</nav>
+<div class="mt-4 ml-4">
+    <a style="color: rgb(100, 97, 97);" href="/"> Trang chủ </a>
+</div>
 
 
-<div class="container ">
+<div class="container mt-4">
     <h3 class="ml-5">Danh sách nhân viên</h3>
     <div type="button" class="btn btn-secondary mb-4" style="float: right;"><a href="/employees/create" class="text-light"><i class="fa-solid fa-user-plus mr-4"></i>Thêm mới</a></div>
     <table class="table mt-4 ">

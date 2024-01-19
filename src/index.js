@@ -132,6 +132,7 @@ app.set("views", path.join(__dirname, "resource", "views"));
 route(app);
 
 app.get('/cart/order/wait', (req,res,next)=>{
+    console.log(req.cookies.yourOrder);
     res.render('cart/wait',{order:req.cookies.yourOrder});
 })
 

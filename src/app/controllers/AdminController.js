@@ -38,7 +38,7 @@ class AdminController {
       .then((products) => {
         res.render("admin/showProducts", {
           products: mutipleMongooseToObject(products),
-          admin: admin,
+          admin: user,
         });
       })
       .catch(next);
