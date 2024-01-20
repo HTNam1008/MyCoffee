@@ -75,11 +75,8 @@ class CartController {
     const formData = req.body;
     const itemList = req.cookies.orders;
     var itemIds = [];
-    if (itemIds.length==0){
-      res.render('cart/show',{msg:"Cart is empty!",color:"danger"});
-    }
-    else{
-      for (var obj of itemList) {
+    
+    for (var obj of itemList) {
         itemIds.push(obj);
         OrderDetail.findById(obj)
           .then((order) => {
@@ -89,7 +86,11 @@ class CartController {
           .then((updatedOrder) => {})
           .catch();
       }
-      
+
+    if (itemIds.length==0){
+        res.render('cart/show',{msg:"Cart is empty!",color:"danger"});
+    }
+    else{
       const newOrder = new Order({
         tableId: req.cookies.tableID,
         itemList: itemIds,
@@ -100,25 +101,21 @@ class CartController {
         status: "waiting",
         employee: "",
       });
-  
-      
-  
+
       newOrder
-        .save()
-        .then((order) => {
-          req.session.yourOrder = mongoosesToObject(order);
-          res.cookie("yourOrder", mongoosesToObject(order), {
-            maxAge: 86400000,
-            httpOnly: true,
-          });
-          res.clearCookie("orders");
-          res.redirect("/cart/order/wait");
-        })
-        .catch((error) => console.log("Error:" + error));
-
+      .save()
+      .then((order) => {
+        req.session.yourOrder = mongoosesToObject(order);
+        res.cookie("yourOrder", mongoosesToObject(order), {
+          maxAge: 86400000,
+          httpOnly: true,
+        });
+        res.clearCookie("orders");
+        res.redirect("/cart/order/wait");
+      })
+      .catch((error) => console.log("Error:" + error));
     }
-
-   
+      
   }
 
   orderEmployee(req, res, next) {
